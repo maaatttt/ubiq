@@ -41,9 +41,6 @@ sudo cp ./gubiq-linux-arm-7 /usr/bin/gubiq
 sudo chmod +x /usr/bin/gubiq
 sudo mv /home/node /mnt/ssd
 sudo ln -s /mnt/ssd/node /home
-echo
-echo "Press any key to reboot..."
-echo
 secs=$((1 * 8))
 while [ $secs -gt 0 ]; do
    echo -ne "$secs\033[0K\r"
