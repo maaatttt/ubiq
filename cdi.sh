@@ -18,7 +18,7 @@ else
   exit
 fi
 cd /mnt/ssd
-sudo gunzip ubiq_block_706337.gz  | sudo tee /mnt/ssd/ubiq_block_706337 
+sudo gunzip -k ubiq_block_706337.gz  | sudo tee /mnt/ssd/ubiq_block_706337 
 /usr/bin/gubiq --cache 1024 import /mnt/ssd/ubiq_block_706337
 sudo supervisorctl start gubiq
 sudo reboot
