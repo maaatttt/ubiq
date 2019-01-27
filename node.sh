@@ -14,8 +14,8 @@ sudo adduser node
 sudo usermod -G sudo node
 echo "dtoverlay=pi3-disable-bt" | sudo tee -a /boot/config.txt
 echo "dtoverlay=pi3-disable-wifi" | sudo tee -a /boot/config.txt
-#sudo sed -i -e 's/CONF_SWAPSIZE=100/CONF_SWAPSIZE=2048/ /etc/dphys-swapfile
-#sudo /etc/init.d/dphys-swapfile restart
+sudo sed -i -e "s/CONF_SWAPSIZE=100/CONF_SWAPSIZE=2048/" /etc/dphys-swapfile
+sudo /etc/init.d/dphys-swapfile restart
 sudo apt-get update -q
 sudo apt-get upgrade -y -q
 sudo apt-get dist-upgrade -q
