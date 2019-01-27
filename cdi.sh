@@ -13,9 +13,9 @@ echo "If the two SHA Hash results match, you may continue. If not, do not procee
 echo
 read -p "Would you like to continue? (y/n)" CONT
 if [ "$CONT" = "y" ]; then
-  sudo rm -rf /mnt/ssd/node/.ubiq/chaindata
+  sudo rm -rf /mnt/ssd/node/.ubiq/gubiq/chaindata
 else
   exit
 fi
-zcat ubiq_block_706337.gz > /mnt/ssd/node/.ubiq/chaindata
+zcat ubiq_block_706337.gz > /mnt/ssd/node/.ubiq/gubiq/chaindata
 sudo reboot
