@@ -1,7 +1,7 @@
 #!/bin/bash
 
 sudo supervisorctl stop gubiq
-wget http://headru.sh/ubiq/ubiq_block_706337.gz -O /mnt/ssd/ubiq_block_706337.gz
+sudo wget http://headru.sh/ubiq/ubiq_block_706337.gz -O /mnt/ssd/ubiq_block_706337.gz
 echo
 echo "Compare the following two SHA256 Hash results.."
 echo
