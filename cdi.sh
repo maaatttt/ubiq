@@ -5,6 +5,7 @@ sudo wget http://headru.sh/ubiq/ubiq_block_706337.gz -O /mnt/ssd/ubiq_block_7063
 echo
 echo "Compare the following two SHA256 Hash results.."
 echo
+cd /mnt/ssd
 sudo sha256sum ubiq_block_706337.gz
 echo
 echo "6dd746478016bc8d19e7f89e5b51158947c27e6ddca5756fcfa21353752a8f89"
@@ -17,7 +18,6 @@ if [ "$CONT" = "y" ]; then
 else
   exit
 fi
-cd /mnt/ssd
 sudo gunzip -k ubiq_block_706337.gz  | sudo tee /mnt/ssd/ubiq_block_706337 
 /usr/bin/gubiq --cache 1024 import /mnt/ssd/ubiq_block_706337
 sudo supervisorctl start gubiq
