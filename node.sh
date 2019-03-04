@@ -37,7 +37,7 @@ echo "autorestart=true" | sudo tee -a /etc/supervisor/conf.d/gubiq.conf
 echo "stderr_logfile=/var/log/gubiq.err.log" | sudo tee -a /etc/supervisor/conf.d/gubiq.conf
 echo "stdout_logfile=/var/log/gubiq.out.log" | sudo tee -a /etc/supervisor/conf.d/gubiq.conf
 cd
-wget https://github.com/ubiq/go-ubiq/releases/download/v2.0.1/gubiq-linux-arm-7
+wget https://github.com/ubiq/go-ubiq/releases/download/v2.1.0/gubiq-linux-arm-7
 sudo cp ./gubiq-linux-arm-7 /usr/bin/gubiq
 sudo chmod +x /usr/bin/gubiq
 sudo mv /home/node /mnt/ssd
