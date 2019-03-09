@@ -49,9 +49,11 @@ echo
 read -p "Would you like to set your node to "full" sync mode?  This will take more storage space and sync will take longer. (y/n)" CONT
 if [ "$CONT" = "y" ]; then
   sudo sed -i -e "s/--maxpeers 100/--maxpeers 100 --syncmode "full"/" /etc/supervisor/conf.d/gubiq.conf 
+  echo "Your node will sync in 'full' mode"
+  sleep 5s
 else
   echo "Your node will sync in 'fast' mode"
-  sleep 4
+  sleep 5s
 fi
 wget https://github.com/ubiq/go-ubiq/releases/download/v2.1.0/gubiq-linux-arm-7
 sudo cp ./gubiq-linux-arm-7 /usr/bin/gubiq
