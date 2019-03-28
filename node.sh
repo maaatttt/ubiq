@@ -57,7 +57,7 @@ else
   echo "Your node will sync in 'fast' mode"
   sleep 4
 fi
-wget https://github.com/ubiq/go-ubiq/releases/download/v2.1.0/gubiq-linux-arm-7
+wget https://github.com/ubiq/go-ubiq/releases/download/v2.2.0/gubiq-linux-arm-7
 sudo cp ./gubiq-linux-arm-7 /usr/bin/gubiq
 sudo chmod +x /usr/bin/gubiq
 sudo mv /home/node /mnt/ssd
