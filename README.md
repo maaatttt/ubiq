@@ -82,7 +82,7 @@ Applicable nodes must be synced and using [Supervisor](http://supervisord.org/) 
 
 This script is intended to run on a **(32bit)** Raspberry Pi 3B or 3B+ running Raspbian Lite, or a (32bit) Asus Tinkerboard running Armbian.
 
-Software downloads; apt-related system software
+Software downloads; apt-related system software,  [gubiq](https://github.com/ubiq/go-ubiq/releases/)
 
 ------------------------------------------------------------------------------------------------------------------------------
 
