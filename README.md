@@ -59,7 +59,7 @@ This script handles all the commands to update the running instance of gubiq on 
 
 This script is intended to run on a **(32bit)** Raspberry Pi 3B or 3B+ running Raspbian Lite, or a (32bit) Asus Tinkerboard running Armbian.
 
-Software downloads: apt-related system software, [gubiq](https://github.com/ubiq/go-ubiq/releases/)
+Software downloads; apt-related system software, [gubiq](https://github.com/ubiq/go-ubiq/releases/)
 
 ------------------------------------------------------------------------------------------------------------------------------
 
@@ -69,7 +69,7 @@ This script handles all the commands to update the running instance of gubiq on 
 
 It is intended to run on a **(64bit)** system such as the Ordoid C2 running Armbian or the Libre LePotato running Armbian.
 
-Software downloads: apt-related system software, [gubiq](https://github.com/ubiq/go-ubiq/releases/)
+Software downloads; apt-related system software, [gubiq](https://github.com/ubiq/go-ubiq/releases/)
 
 
 ------------------------------------------------------------------------------------------------------------------------------
@@ -82,7 +82,7 @@ Applicable nodes must be synced and using [Supervisor](http://supervisord.org/) 
 
 This script is intended to run on a **(32bit)** Raspberry Pi 3B or 3B+ running Raspbian Lite, or a (32bit) Asus Tinkerboard running Armbian.
 
-Software downloads: apt-related system software
+Software downloads; apt-related system software
 
 ------------------------------------------------------------------------------------------------------------------------------
 
