@@ -86,6 +86,15 @@ Software downloads; apt-related system software,  [gubiq](https://github.com/ubi
 
 ------------------------------------------------------------------------------------------------------------------------------
 
+## **[auto.sh](https://raw.githubusercontent.com/maaatttt/ubiq/master/auto.sh)**
+
+This script is run as part of an optional cron job that re-fetches an update script monthly. It is downloaded as part of the initial node setup script.  The updater downloads the [gu.sh](https://raw.githubusercontent.com/maaatttt/ubiq/master/gu.sh) script, which runs the update commands, then deletes itself to prevent file name conflict when the cron job runs again the following month.  **Automatic updates to gubiq resulting from the [gu.sh](https://raw.githubusercontent.com/maaatttt/ubiq/master/gu.sh) script will _only_ be release versions, and _never_ pre-release beta versions.**
+
+Currently only in [node.sh](https://raw.githubusercontent.com/maaatttt/ubiq/master/node.sh) setup script.  Will be added to 
+[node2.sh](https://raw.githubusercontent.com/maaatttt/ubiq/master/node2.sh), [node3.sh](https://raw.githubusercontent.com/maaatttt/ubiq/master/node3.sh), [node4.sh](https://raw.githubusercontent.com/maaatttt/ubiq/master/node4.sh) soon.
+
+------------------------------------------------------------------------------------------------------------------------------
+
 ## Acknowledgments
 
 Special thanks to the Ubiq developers, the Ubiq Community, and the authors of open software used in these processes.
