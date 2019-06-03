@@ -26,5 +26,12 @@ echo
 read varpass
 sudo sed -i -e "s/password/$varpass/" /etc/supervisor/conf.d/gubiq.conf
 sleep 2s
+read -p "Would you like to set your node to "full" sync mode?  This will take more storage space and sync will take longer. (y/n)" CONT
+if [ "$CONT" = "y" ]; then
+  sudo sed -i -e "s/--maxpeers 100/--maxpeers 100 --syncmode "full"/" /etc/supervisor/conf.d/gubiq.conf 
+else
+  echo "Your node will sync in 'fast' mode"
+  sleep 4
+fi
 sudo supervisorctl start gubiq
 sudo reboot
