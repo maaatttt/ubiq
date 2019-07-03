@@ -11,8 +11,6 @@ echo "When setup is finished your node will restart automatically."
 echo
 sleep 15s
 sudo raspi-config
-echo "dtoverlay=pi3-disable-bt" | sudo tee -a /boot/config.txt
-echo "dtoverlay=pi3-disable-wifi" | sudo tee -a /boot/config.txt
 sudo adduser node
 sudo usermod -G sudo node
 sudo apt-get update -q
