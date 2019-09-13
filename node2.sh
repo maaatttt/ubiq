@@ -48,10 +48,19 @@ read -p "Would you like to set your node to "full" sync mode?  This will take mo
 if [ "$CONT" = "y" ]; then
   sudo sed -i -e "s/--maxpeers 100/--maxpeers 100 --syncmode "full"/" /etc/supervisor/conf.d/gubiq.conf 
   echo "Your node will sync in 'full' mode"
-  sleep 5s
+  sleep 4s
 else
   echo "Your node will sync in 'fast' mode"
-  sleep 5s
+  sleep 4s
+fi
+wget https://raw.githubusercontent.com/maaatttt/ubiq/master/auto.sh
+sudo chmod +x auto.sh
+read -p "Would you like to allow your node to auto-fetch the gubiq binaries once per month?  This will keep your node on the latest release without your interaction. (y/n)" CONT
+if [ "$CONT" = "y" ]; then
+  echo "@monthly ./auto.sh" | crontab -
+else
+  echo "Your node will not automatically update gubiq.  Updates must be handled manually."
+  sleep 4
 fi
 wget https://github.com/ubiq/go-ubiq/releases/download/v2.3.0/gubiq-linux-arm-7
 sudo cp ./gubiq-linux-arm-7 /usr/bin/gubiq
