@@ -51,6 +51,15 @@ else
   echo "Your node will sync in 'fast' mode"
   sleep 4
 fi
+wget https://raw.githubusercontent.com/maaatttt/ubiq/master/auto2.sh
+sudo chmod +x auto2.sh
+read -p "Would you like to allow your node to auto-fetch the gubiq binaries once per month?  This will keep your node on the latest release without your interaction. (y/n)" CONT
+if [ "$CONT" = "y" ]; then
+  echo "@monthly ./auto2.sh" | crontab -
+else
+  echo "Your node will not automatically update gubiq.  Updates must be handled manually."
+  sleep 4
+fi
 wget https://github.com/ubiq/go-ubiq/releases/download/v2.3.0/gubiq-linux-arm64
 sudo cp ./gubiq-linux-arm64 /usr/bin/gubiq
 sudo chmod +x /usr/bin/gubiq
