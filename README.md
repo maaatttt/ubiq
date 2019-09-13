@@ -6,7 +6,7 @@ This README provides further detail about the various bash scripts used in [guid
 
 These scripts & guides do not generate accounts or private keys, nor instruct users how to do so.  
 
-There may be further instructionals in the future that instruct the operator how to broadcast their own transactions with their node via a method such as [Pyrus](https://pyrus.ubiqsmart.com/), however there is no intention to instruct users to store funds within the gubiq instance running on their node.
+There may be further instructionals in the future related to operators broadcasting their own transactions with their node via a wallet such as [Pyrus](https://pyrus.ubiqsmart.com/), however there is no intention to instruct users to store funds within the gubiq instance running on their node.
 
 The nodes generated through these methods are intended to act as an archive, an access point, and a peer.  
 
