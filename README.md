@@ -12,6 +12,8 @@ The nodes generated through these methods are intended to act as an archive, an 
 
 They are not intended to be a wallet!
 
+Please read the file descriptions below carefully to ensure you are using the correct version for your system.
+
 ##
 
 ## **[node.sh](https://raw.githubusercontent.com/maaatttt/ubiq/master/node.sh)** 
