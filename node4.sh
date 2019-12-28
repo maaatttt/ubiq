@@ -60,7 +60,7 @@ else
   echo "Your node will not automatically update gubiq.  Updates must be handled manually."
   sleep 4
 fi
-wget https://github.com/ubiq/go-ubiq/releases/download/v2.3.0/gubiq-linux-arm64
+wget https://github.com/ubiq/go-ubiq/releases/download/v3.0.0/gubiq-linux-arm64
 sudo cp ./gubiq-linux-arm64 /usr/bin/gubiq
 sudo chmod +x /usr/bin/gubiq
 sudo mv /home/node /mnt/ssd
