@@ -8,7 +8,7 @@ sudo npm remove pm2 -g
 sudo apt-get remove nodejs
 sudo rm gubiq-linux-arm-7
 sudo rm /usr/bin/gubiq
-wget https://github.com/ubiq/go-ubiq/releases/download/v2.3.0/gubiq-linux-arm-7
+wget https://github.com/ubiq/go-ubiq/releases/download/v3.0.0/gubiq-linux-arm-7
 sudo cp ./gubiq-linux-arm-7 /usr/bin/gubiq
 sudo chmod +x /usr/bin/gubiq
 sudo sed -i -e "s/--maxpeers 100/--maxpeers 100 --ethstats "temporary:password@ubiq.darcr.us"/" /etc/supervisor/conf.d/gubiq.conf
