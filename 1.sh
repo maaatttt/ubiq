@@ -163,42 +163,42 @@ fi
 read -p "Would you like to allow your node to auto-fetch the gubiq binaries once per month?  This will keep your node on the latest release without your interaction. (y/n)" CONT
 if [ "$CONT" = "y" ]
 then
-  cd
-  sudo touch auto.sh
-  echo "#!/bin/bash" | sudo tee -a auto.sh
-  echo "" | sudo tee -a auto.sh
-  echo "wget https://raw.githubusercontent.com/maaatttt/ubiq/master/gu.sh" | sudo tee -a auto.sh
-  echo "chmod +x gu.sh" | sudo tee -a auto.sh
-  echo "./gu.sh" | sudo tee -a auto.sh
-  sudo chmod +x auto.sh
-  echo "@monthly ./auto.sh" | crontab -
+	cd
+  	sudo touch auto.sh
+  	echo "#!/bin/bash" | sudo tee -a auto.sh
+  	echo "" | sudo tee -a auto.sh
+  	echo "wget https://raw.githubusercontent.com/maaatttt/ubiq/master/gu.sh" | sudo tee -a auto.sh
+  	echo "chmod +x gu.sh" | sudo tee -a auto.sh
+  	echo "./gu.sh" | sudo tee -a auto.sh
+  	sudo chmod +x auto.sh
+  	echo "@monthly ./auto.sh" | crontab -
 else
-  echo "Your node will NOT automatically update gubiq.  All updates must be handled manually!"
-  sleep 8
+  	echo "Your node will NOT automatically update gubiq.  All updates must be handled manually!"
+  	sleep 8
 fi
 
 #### Your system will pick the correct binary file to download based on how it was defined at the beginning of this script.
 
 if [ hardware=RaspberryPi ]
 then
-  wget https://github.com/ubiq/go-ubiq/releases/download/v3.0.1/gubiq-linux-arm-7
-  sudo cp ./gubiq-linux-arm-7 /usr/bin/gubiq
+	wget https://github.com/ubiq/go-ubiq/releases/download/v3.0.1/gubiq-linux-arm-7
+  	sudo cp ./gubiq-linux-arm-7 /usr/bin/gubiq
 elif [ hardware=Tinkerboard ]
 then
-  wget https://github.com/ubiq/go-ubiq/releases/download/v3.0.1/gubiq-linux-arm-7
-  sudo cp ./gubiq-linux-arm-7 /usr/bin/gubiq
+  	wget https://github.com/ubiq/go-ubiq/releases/download/v3.0.1/gubiq-linux-arm-7
+  	sudo cp ./gubiq-linux-arm-7 /usr/bin/gubiq
 elif [ hardware=OdroidXU4 ]
 then
-  wget https://github.com/ubiq/go-ubiq/releases/download/v3.0.1/gubiq-linux-arm-7
-  sudo cp ./gubiq-linux-arm-7 /usr/bin/gubiq
+  	wget https://github.com/ubiq/go-ubiq/releases/download/v3.0.1/gubiq-linux-arm-7
+  	sudo cp ./gubiq-linux-arm-7 /usr/bin/gubiq
 elif [ hardware=OdroidC2 ]
 then
-  wget https://github.com/ubiq/go-ubiq/releases/download/v3.0.1/gubiq-linux-arm64
-  sudo cp ./gubiq-linux-arm64 /usr/bin/gubiq
+  	wget https://github.com/ubiq/go-ubiq/releases/download/v3.0.1/gubiq-linux-arm64
+  	sudo cp ./gubiq-linux-arm64 /usr/bin/gubiq
 elif [ hardware=LibreLePotato ]
 then
-  wget https://github.com/ubiq/go-ubiq/releases/download/v3.0.1/gubiq-linux-arm64
-  sudo cp ./gubiq-linux-arm64 /usr/bin/gubiq
+  	wget https://github.com/ubiq/go-ubiq/releases/download/v3.0.1/gubiq-linux-arm64
+  	sudo cp ./gubiq-linux-arm64 /usr/bin/gubiq
 fi
 
 #### Lets put our stuff where it belongs and give it the power to do it's job.
