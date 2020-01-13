@@ -117,7 +117,7 @@ clear
 read -p "Would you like to list your node on the Ubiq Network Stats Page? This will make your node name & stats available on "https://ubiq.darcr.us'. (y/n)" CONT
 if [ "$CONT" = "y" ]; then
   	echo "Type a name for your node to be displayed on the Network Stats website, then press Enter."
-    echo
+	echo
   	read varname
   	sudo sed -i -e "s/temporary/$varname/" /etc/supervisor/conf.d/gubiq.conf
   	echo
