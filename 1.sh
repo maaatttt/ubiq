@@ -126,7 +126,7 @@ else
   echo "Your node will not be listed on the public site"
 fi
  
-#### If you are using a Raspberry Pi, SSH is not enabled by default like it is on Armbian.  It's handy, so maybe enable it!
+#### If you are using a Raspberry Pi, SSH is not enabled by default like it is on Armbian.
 
 if [ hardware=RaspberryPi ]
 then
@@ -194,7 +194,7 @@ then
   sudo cp ./gubiq-linux-arm64 /usr/bin/gubiq
 fi
 
-#### Let put our stuff where it belongs and give it the power to do it's job.
+#### Lets put our stuff where it belongs and give it the power to do it's job.
 
 sudo cp ./gubiq-linux-arm-7 /usr/bin/gubiq
 sudo chmod +x /usr/bin/gubiq
