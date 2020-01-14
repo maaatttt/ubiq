@@ -104,7 +104,7 @@ fi
 
 sudo touch /etc/supervisor/conf.d/gubiq.conf
 echo "[program:gubiq]" | sudo tee -a /etc/supervisor/conf.d/gubiq.conf
-echo "command=/usr/bin/gubiq --verbosity 3 --rpc --rpcaddr "127.0.0.1" --rpcport "8588" --rpcapi "eth,net,web3" --maxpeers 100 --ethstats "temporary:password@ubiq.darcr.us"" | sudo tee -a /etc/supervisor/conf.d/gubiq.conf
+echo "command=/usr/bin/gubiq --verbosity 3 --rpc --rpcaddr "127.0.0.1" --rpcport "8588" --rpcapi "eth,net,web3" --maxpeers 100" | sudo tee -a /etc/supervisor/conf.d/gubiq.conf
 echo "user=node" | sudo tee -a /etc/supervisor/conf.d/gubiq.conf
 echo "autostart=true" | sudo tee -a /etc/supervisor/conf.d/gubiq.conf
 echo "autorestart=true" | sudo tee -a /etc/supervisor/conf.d/gubiq.conf
@@ -117,6 +117,7 @@ clear
 
 read -p "Would you like to list your node on the Ubiq Network Stats Page? This will make your node name & stats available on "https://ubiq.darcr.us'. (y/n)" CONT
 if [ "$CONT" = "y" ]; then
+	sudo sed -i -e "s/--maxpeers 100/--maxpeers 100 --ethstats "temporary:password@ubiq.darcr.us"/" /etc/supervisor/conf.d/gubiq.conf
   	echo "Type a name for your node to be displayed on the Network Stats website, then press Enter."
 	echo
   	read varname
