@@ -50,6 +50,7 @@ then
 	hardware=LibreLePotato
 fi
 clear
+
 #### Let's make some helpful changes and additions...
 
 if [ hardware=RaspberryPi ]
