@@ -169,7 +169,7 @@ then
   	echo "#!/bin/bash" | sudo tee -a auto.sh
   	echo "" | sudo tee -a auto.sh
   	echo "wget https://raw.githubusercontent.com/maaatttt/ubiq/master/gu.sh" | sudo tee -a auto.sh
-  	echo "chmod +x gu.sh" | sudo tee -a auto.sh
+  	echo "sudo chmod +x gu.sh" | sudo tee -a auto.sh
   	echo "./gu.sh" | sudo tee -a auto.sh
   	sudo chmod +x auto.sh
   	echo "@monthly ./auto.sh" | crontab -
