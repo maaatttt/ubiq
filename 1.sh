@@ -221,23 +221,6 @@ echo
 
 #### Lets put our stuff where it belongs and give it the power to do it's job.
 
-if [ hardware=RaspberryPi ]
-then
-	sudo cp ./gubiq-linux-arm-7 /usr/bin/gubiq
-elif [ hardware=Tinkerboard ]
-then
-	sudo cp ./gubiq-linux-arm-7 /usr/bin/gubiq
-elif [ hardware=OdroidXU4 ]
-then
-	sudo cp ./gubiq-linux-arm-7 /usr/bin/gubiq
-elif [ hardware=OdroidC2 ]
-then
-	sudo cp ./gubiq-linux-arm64 /usr/bin/gubiq
-elif [ hardware=LibreLePotato ]
-then
-	sudo cp ./gubiq-linux-arm64 /usr/bin/gubiq
-fi
-
 sudo chmod +x /usr/bin/gubiq
 sudo mv /home/node /mnt/ssd
 sudo ln -s /mnt/ssd/node /home
