@@ -115,7 +115,7 @@ clear
 
 #### Maybe you want to display your stats in public....or maybe not.
 
-read -p "Would you like to list your node on the Ubiq Network Stats Page? This will make your node name & stats available on "https://ubiq.darcr.us'. (y/n)" CONT
+read -p "Would you like to list your node on the Ubiq Network Stats Page? This will make your node name & stats available on 'https://ubiq.darcr.us'. (y/n)" CONT
 if [ "$CONT" = "y" ]
 then
 	sudo sed -i -e "s/--maxpeers 100/--maxpeers 100 --ethstats "temporary:password@ubiq.darcr.us"/" /etc/supervisor/conf.d/gubiq.conf
