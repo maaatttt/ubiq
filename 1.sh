@@ -223,34 +223,23 @@ echo
 if [ hardware=RaspberryPi ]
 then
 	sudo cp ./gubiq-linux-arm-7 /usr/bin/gubiq
-	sudo chmod +x /usr/bin/gubiq
-	sudo mv /home/node /mnt/ssd
-	sudo ln -s /mnt/ssd/node /home
 elif [ hardware=Tinkerboard ]
 then
 	sudo cp ./gubiq-linux-arm-7 /usr/bin/gubiq
-	sudo chmod +x /usr/bin/gubiq
-	sudo mv /home/node /mnt/ssd
-	sudo ln -s /mnt/ssd/node /home
 elif [ hardware=OdroidXU4 ]
 then
 	sudo cp ./gubiq-linux-arm-7 /usr/bin/gubiq
-	sudo chmod +x /usr/bin/gubiq
-	sudo mv /home/node /mnt/ssd
-	sudo ln -s /mnt/ssd/node /home
 elif [ hardware=OdroidC2 ]
 then
 	sudo cp ./gubiq-linux-arm64 /usr/bin/gubiq
-	sudo chmod +x /usr/bin/gubiq
-	sudo mv /home/node /mnt/ssd
-	sudo ln -s /mnt/ssd/node /home
 elif [ hardware=LibreLePotato ]
 then
 	sudo cp ./gubiq-linux-arm64 /usr/bin/gubiq
-	sudo chmod +x /usr/bin/gubiq
-	sudo mv /home/node /mnt/ssd
-	sudo ln -s /mnt/ssd/node /home
 fi
+
+sudo chmod +x /usr/bin/gubiq
+sudo mv /home/node /mnt/ssd
+sudo ln -s /mnt/ssd/node /home
 echo	
 
 #### ITS THE FINAL COUNTDOWWWWNNNNNNN
