@@ -140,7 +140,8 @@ else
   	echo "Your node will not be listed on the public site"
 fi
 echo
-#### If you are using a Raspberry Pi, SSH is not enabled by default like it is on Armbian.
+
+#### If you are using a Raspberry Pi, SSH is not enabled by default like it is on systems running Armbian.
 
 if [ hardware=RaspberryPi ]
 then
@@ -155,10 +156,10 @@ else
   	echo "SSH will not be enabled on this system.  To enable SSH in the future, you can do so in the raspi-config menu."
   	sleep 4
 fi
+echo
 
 #### Got lot's of space on that SSD? Sync it all!  Data diet? Use Fast mode and only grab the vital bits...
 
-echo
 read -p "Would you like to set your node to "full" sync mode?  This will take more storage space and sync will take longer. (y/n)" CONT
 if [ "$CONT" = "y" ]; then
 	sudo sed -i -e "s/--maxpeers 100/--maxpeers 100 --syncmode "full" --gcmode "archive"/" /etc/supervisor/conf.d/gubiq.conf 
@@ -168,6 +169,7 @@ else
 	echo "Your node will sync in 'fast' mode"
 	sleep 4
 fi
+echo
 
 #### You have the option of letting your system re-fetch gubiq binaries once a month.  If there is an update, it'll sort itself out.
 
@@ -189,6 +191,7 @@ else
   	echo "Your node will NOT automatically update gubiq.  All updates must be handled manually!"
   	sleep 4
 fi
+echo
 
 #### Your system will pick the correct binary file to download based on how it was defined at the beginning of this script.
 
@@ -213,13 +216,42 @@ then
   	wget https://github.com/ubiq/go-ubiq/releases/download/v3.0.1/gubiq-linux-arm64
   	sudo cp ./gubiq-linux-arm64 /usr/bin/gubiq
 fi
+echo
 
 #### Lets put our stuff where it belongs and give it the power to do it's job.
 
-sudo cp ./gubiq-linux-arm-7 /usr/bin/gubiq
-sudo chmod +x /usr/bin/gubiq
-sudo mv /home/node /mnt/ssd
-sudo ln -s /mnt/ssd/node /home
+if [ hardware=RaspberryPi ]
+then
+	sudo cp ./gubiq-linux-arm-7 /usr/bin/gubiq
+	sudo chmod +x /usr/bin/gubiq
+	sudo mv /home/node /mnt/ssd
+	sudo ln -s /mnt/ssd/node /home
+elif [ hardware=Tinkerboard ]
+then
+	sudo cp ./gubiq-linux-arm-7 /usr/bin/gubiq
+	sudo chmod +x /usr/bin/gubiq
+	sudo mv /home/node /mnt/ssd
+	sudo ln -s /mnt/ssd/node /home
+elif [ hardware=OdroidXU4 ]
+then
+	sudo cp ./gubiq-linux-arm-7 /usr/bin/gubiq
+	sudo chmod +x /usr/bin/gubiq
+	sudo mv /home/node /mnt/ssd
+	sudo ln -s /mnt/ssd/node /home
+elif [ hardware=OdroidC2 ]
+then
+	sudo cp ./gubiq-linux-arm64 /usr/bin/gubiq
+	sudo chmod +x /usr/bin/gubiq
+	sudo mv /home/node /mnt/ssd
+	sudo ln -s /mnt/ssd/node /home
+elif [ hardware=LibreLePotato ]
+then
+	sudo cp ./gubiq-linux-arm64 /usr/bin/gubiq
+	sudo chmod +x /usr/bin/gubiq
+	sudo mv /home/node /mnt/ssd
+	sudo ln -s /mnt/ssd/node /home
+fi
+echo	
 
 #### ITS THE FINAL COUNTDOWWWWNNNNNNN
 
