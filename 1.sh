@@ -112,7 +112,8 @@ echo "stderr_logfile=/var/log/gubiq.err.log" | sudo tee -a /etc/supervisor/conf.
 echo "stdout_logfile=/var/log/gubiq.out.log" | sudo tee -a /etc/supervisor/conf.d/gubiq.conf
 echo
 clear
-#### Maybe you're in it for the glory. You can put your name on the wall....or not.
+
+#### Maybe you want to display your stats in public....or maybe not.
 
 read -p "Would you like to list your node on the Ubiq Network Stats Page? This will make your node name & stats available on "https://ubiq.darcr.us'. (y/n)" CONT
 if [ "$CONT" = "y" ]; then
