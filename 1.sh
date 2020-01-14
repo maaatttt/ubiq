@@ -135,7 +135,7 @@ then
 else
   	echo "Your node will not be listed on the public site"
 fi
- 
+echo
 #### If you are using a Raspberry Pi, SSH is not enabled by default like it is on Armbian.
 
 if [ hardware=RaspberryPi ]
@@ -144,10 +144,12 @@ then
 if [ $CONT = y ]
 then
   	sudo raspi-config nonint do_ssh 0
+	echo "SSH has been enabled"
+	sleep 4
 fi
 else
   	echo "SSH will not be enabled on this system.  To enable SSH in the future, you can do so in the raspi-config menu."
-  	sleep 8
+  	sleep 4
 fi
 
 #### Got lot's of space on that SSD? Sync it all!  Data diet? Use Fast mode and only grab the vital bits...
@@ -155,10 +157,12 @@ fi
 echo
 read -p "Would you like to set your node to "full" sync mode?  This will take more storage space and sync will take longer. (y/n)" CONT
 if [ "$CONT" = "y" ]; then
-  sudo sed -i -e "s/--maxpeers 100/--maxpeers 100 --syncmode "full" --gcmode "archive"/" /etc/supervisor/conf.d/gubiq.conf 
+	sudo sed -i -e "s/--maxpeers 100/--maxpeers 100 --syncmode "full" --gcmode "archive"/" /etc/supervisor/conf.d/gubiq.conf 
+	echo "Your node will sync in full, including all details of all blocks."
+	sleep 4
 else
-  echo "Your node will sync in 'fast' mode"
-  sleep 4
+	echo "Your node will sync in 'fast' mode"
+	sleep 4
 fi
 
 #### You have the option of letting your system re-fetch gubiq binaries once a month.  If there is an update, it'll sort itself out.
@@ -175,9 +179,11 @@ then
   	echo "./gu.sh" | sudo tee -a auto.sh
   	sudo chmod +x auto.sh
   	echo "@monthly ./auto.sh" | crontab -
+	echo "Your node will download the most current version of gubiq, and restart its processes on the first of every month"
+	sleep 6
 else
   	echo "Your node will NOT automatically update gubiq.  All updates must be handled manually!"
-  	sleep 8
+  	sleep 4
 fi
 
 #### Your system will pick the correct binary file to download based on how it was defined at the beginning of this script.
