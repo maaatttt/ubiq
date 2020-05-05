@@ -19,8 +19,7 @@ echo " - Libre LePotato running Armbian "
 echo
 read -p "Press enter to continue to setup."
 
-#### A list of compatible hardware, which will be updated as new options
-#### become available and have been tested.
+#### A list of compatible hardware, which will be updated as new options become available and have been tested.
 
 if grep -q 'Raspberry' /proc/device-tree/model;
 then hardware=RaspberryPi
@@ -39,18 +38,18 @@ clear
 
 if [ $hardware = RaspberryPi ];
 then
-		echo
-    echo "Your new user will be called 'node'."
-    echo
-    echo "You will now be prompted to set a password for your new user..."
-		echo
-    echo "When prompted to fill in personal details, you may leave it blank."
-    echo
-    echo "Welcome to Ubiq!"
-		echo
+	echo
+	echo "Your new user will be called 'node'."
+    	echo
+    	echo "You will now be prompted to set a password for your new user..."
+	echo
+    	echo "When prompted to fill in personal details, you may leave it blank."
+    	echo
+    	echo "Welcome to Ubiq!"
+	echo
   	read -p "Press enter to continue..."
-		clear
-		sudo adduser node
+	clear
+	sudo adduser node
   	sudo usermod -G sudo node
   	sudo sed -i -e "s/CONF_SWAPSIZE=100/CONF_SWAPSIZE=2048/" /etc/dphys-swapfile
   	sudo /etc/init.d/dphys-swapfile restart
@@ -58,16 +57,16 @@ fi
 
 if [ $hardware != RaspberryPi ];
 then
-		echo
-		echo "If you are running Armbian you created the user called 'node' and set it's password on first boot."
-		echo
-		echo "You should have also set up the network connection & adjusted the timezone settings."
+	echo
+	echo "If you are running Armbian you created the user called 'node' and set it's password on first boot."
+	echo
+	echo "You should have also set up the network connection & adjusted the timezone settings."
   	echo
   	echo "When the setup process is complete, your system will restart."
   	echo
   	echo "Welcome to Ubiq!"
   	echo
-		read -p "Press enter to continue..."
+	read -p "Press enter to continue..."
 fi
 
 clear
@@ -100,14 +99,13 @@ clear
 
 #### Maybe you want to display your stats in public, or maybe not.
 
-
 echo
 read -p "Would you like to list your node on the Ubiq Network Stats Page? This will make your node name & stats available on 'https://ubiq.darcr.us'. (y/n)" CONT
 if [ "$CONT" = "y" ]
 then
-		sudo sed -i -e "s/--maxpeers 100/--maxpeers 100 --ethstats "temporary:password@ubiq.darcr.us"/" /etc/supervisor/conf.d/gubiq.conf
+	sudo sed -i -e "s/--maxpeers 100/--maxpeers 100 --ethstats "temporary:password@ubiq.darcr.us"/" /etc/supervisor/conf.d/gubiq.conf
   	echo "Type a name for your node to be displayed on the Network Stats website, then press Enter."
-		echo
+	echo
   	read varname
   	sudo sed -i -e "s/temporary/$varname/" /etc/supervisor/conf.d/gubiq.conf
   	echo
@@ -120,7 +118,7 @@ then
   	sudo sed -i -e "s/password/$varpass/" /etc/supervisor/conf.d/gubiq.conf
   	echo
 else
-		echo "Your node will not be listed on the public site..."
+	echo "Your node will not be listed on the public site..."
 fi
 echo
 echo
@@ -139,12 +137,12 @@ then
 	if [ $CONT = y ]
 	then
   		sudo raspi-config nonint do_ssh 0
-			echo "SSH has been enabled"
-			sleep 4
+		echo "SSH has been enabled"
+		sleep 4
 	fi
 	else
-  	echo "SSH is not active on this system.  To enable SSH in the future, you can do so in the raspi-config menu."
-  	sleep 4
+  		echo "SSH is not active on this system.  To enable SSH in the future, you can do so in the raspi-config menu."
+  		sleep 4
 fi
 echo
 echo
@@ -173,17 +171,17 @@ echo
 read -p "Would you like to allow your node to auto-fetch the gubiq binaries once per month?  This will keep your node on the latest release without your interaction. (y/n)" CONT
 if [ "$CONT" = "y" ]
 then
-		cd
+	cd
   	sudo touch auto.sh
-		sudo chmod +x auto.sh
-		echo "#!/bin/bash" | sudo tee -a auto.sh
+	sudo chmod +x auto.sh
+	echo "#!/bin/bash" | sudo tee -a auto.sh
   	echo "" | sudo tee -a auto.sh
   	echo "wget https://raw.githubusercontent.com/maaatttt/ubiq/master/gu.sh" | sudo tee -a auto.sh
   	echo "sudo chmod +x gu.sh" | sudo tee -a auto.sh
   	echo "./gu.sh" | sudo tee -a auto.sh
   	echo "@monthly ./auto.sh" | crontab -
-		echo "Your node will download the most current version of gubiq, and restart its processes on the first of every month"
-		sleep 6
+	echo "Your node will download the most current version of gubiq, and restart its processes on the first of every month"
+	sleep 6
 else
   	echo "Your node will NOT automatically update gubiq.  All updates must be handled manually!"
   	sleep 4
@@ -194,7 +192,7 @@ echo
 
 if [ $hardware = RaspberryPi ];
 then
-		wget https://github.com/ubiq/go-ubiq/releases/download/v3.0.1/gubiq-linux-arm-7
+	wget https://github.com/ubiq/go-ubiq/releases/download/v3.0.1/gubiq-linux-arm-7
   	sudo cp ./gubiq-linux-arm-7 /usr/bin/gubiq
 elif [ $hardware = Tinkerboard ];
 then
