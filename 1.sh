@@ -139,11 +139,10 @@ then
   		sudo raspi-config nonint do_ssh 0
 		echo "SSH has been enabled"
 		sleep 4
-	fi
 	else
   		echo "SSH is not active on this system.  To enable SSH in the future, you can do so in the raspi-config menu."
   		sleep 4
-fi
+	fi
 echo
 echo
 echo
@@ -191,25 +190,58 @@ echo
 #### Your system will pick the correct binary file to download based on how it was defined at the beginning of this script.
 
 if [ $hardware = RaspberryPi ];
-then
-	wget https://github.com/ubiq/go-ubiq/releases/download/v3.0.1/gubiq-linux-arm-7
-  	sudo cp ./gubiq-linux-arm-7 /usr/bin/gubiq
-elif [ $hardware = Tinkerboard ];
-then
-  	wget https://github.com/ubiq/go-ubiq/releases/download/v3.0.1/gubiq-linux-arm-7
-  	sudo cp ./gubiq-linux-arm-7 /usr/bin/gubiq
-elif [ $hardware = OdroidXU4 ];
-then
-  	wget https://github.com/ubiq/go-ubiq/releases/download/v3.0.1/gubiq-linux-arm-7
-  	sudo cp ./gubiq-linux-arm-7 /usr/bin/gubiq
-elif [ $hardware = OdroidC2 ];
-then
-  	wget https://github.com/ubiq/go-ubiq/releases/download/v3.0.1/gubiq-linux-arm64
-  	sudo cp ./gubiq-linux-arm64 /usr/bin/gubiq
-elif [ $hardware = LibreLePotato ];
-then
-  	wget https://github.com/ubiq/go-ubiq/releases/download/v3.0.1/gubiq-linux-arm64
-  	sudo cp ./gubiq-linux-arm64 /usr/bin/gubiq
+then	wget https://github.com/ubiq/go-ubiq/releases/download/v3.0.1/gubiq-linux-arm-7
+if
+	echo "06d105485aae819ba3f510d8d5916a63c34953770e277b80a78d71fe42848a67 gubiq-linux-arm-7" | sha256sum -c -; then
+	echo "Checksum validated!" >&2
+	sudo cp ./gubiq-linux-arm-7 /usr/bin/gubiq
+else
+	echo "Because the gubiq file could not be validated, node setup has been aborted."
+  exit 1
+fi
+
+if [ $hardware = Tinkerboard ];
+then	wget https://github.com/ubiq/go-ubiq/releases/download/v3.0.1/gubiq-linux-arm-7
+if
+	echo "06d105485aae819ba3f510d8d5916a63c34953770e277b80a78d71fe42848a67 gubiq-linux-arm-7" | sha256sum -c -; then
+	echo "Checksum validated!" >&2
+	sudo cp ./gubiq-linux-arm-7 /usr/bin/gubiq
+else
+	echo "Because the gubiq file could not be validated, node setup has been aborted."
+  exit 1
+fi
+
+if [ $hardware = OdroidXU4 ];
+then	wget https://github.com/ubiq/go-ubiq/releases/download/v3.0.1/gubiq-linux-arm-7
+if
+	echo "06d105485aae819ba3f510d8d5916a63c34953770e277b80a78d71fe42848a67 gubiq-linux-arm-7" | sha256sum -c -; then
+	echo "Checksum validated!" >&2
+	sudo cp ./gubiq-linux-arm-7 /usr/bin/gubiq
+else
+	echo "Because the gubiq file could not be validated, node setup has been aborted."
+  exit 1
+fi
+
+if [ $hardware = OdroidC2 ];
+then	wget https://github.com/ubiq/go-ubiq/releases/download/v3.0.1/gubiq-linux-arm64
+if
+	echo "cc03df2fedd4e02f4c15705deed36308e119c877b0ee158d8cf05c57b7fea5aa gubiq-linux-arm64" | sha256sum -c -; then
+	echo "Checksum validated!" >&2
+	sudo cp ./gubiq-linux-arm64 /usr/bin/gubiq
+else
+	echo "Because the gubiq file could not be validated, node setup has been aborted."
+  exit 1
+fi
+
+if [ $hardware = LibreLePotato ];
+then	wget https://github.com/ubiq/go-ubiq/releases/download/v3.0.1/gubiq-linux-arm64
+if
+	echo "cc03df2fedd4e02f4c15705deed36308e119c877b0ee158d8cf05c57b7fea5aa gubiq-linux-arm64" | sha256sum -c -; then
+	echo "Checksum validated!" >&2
+	sudo cp ./gubiq-linux-arm64 /usr/bin/gubiq
+else
+	echo "Because the gubiq file could not be validated, node setup has been aborted."
+  exit 1
 fi
 echo
 
