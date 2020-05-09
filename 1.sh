@@ -143,6 +143,7 @@ then
   		echo "SSH is not active on this system.  To enable SSH in the future, you can do so in the raspi-config menu."
   		sleep 4
 	fi
+fi
 echo
 echo
 echo
