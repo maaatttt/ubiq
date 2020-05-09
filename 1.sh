@@ -1,4 +1,5 @@
 #!/bin/bash
+clear
 echo
 echo
 echo "88888      88  8888888888o     88888      o888888o"
@@ -93,9 +94,9 @@ sudo apt install ntp -y -q
 sudo apt install htop -q
 sudo apt install supervisor -y -q
 sudo apt install git -y -q
-sudo mkfs.ext4 /dev/sda -L UBIQ
-sudo mkdir /mnt/ssd
-sudo mount /dev/sda /mnt/ssd
+sudo mkfs.ext4 /dev/sda -L UBIQ # can you do this quietly?
+sudo mkdir /mnt/ssd # can you do this quietly?
+sudo mount /dev/sda /mnt/ssd # can you do this quietly?
 echo "/dev/sda /mnt/ssd ext4 defaults 0 0" | sudo tee -a /etc/fstab
 
 #### Let's set up our Supervisor conf file so our node will keep itself online
