@@ -36,23 +36,22 @@ read -p "Press enter to continue to setup."
 
 #### A list of compatible hardware, which will be updated as new options become available and have been tested.
 
-if grep -q 'Raspberry' /proc/device-tree/model;
-then hardware=RaspberryPi
-elif grep -q 'Tinker' /proc/device-tree/model;
-then hardware=Tinkerboard
-elif grep -q 'XU4' /proc/device-tree/model;
-then hardware=OdroidXU4
-elif grep -q 'ODROID-C2' /proc/device-tree/model;
-then hardware=OdroidC2
-elif grep -q 'Libre' /proc/device-tree/model;
-then hardware=LibreLePotato
+if grep -q 'Raspberry' /proc/device-tree/model; then
+	hardware=RaspberryPi
+elif grep -q 'Tinker' /proc/device-tree/model; then
+	hardware=Tinkerboard
+elif grep -q 'XU4' /proc/device-tree/model; then
+	hardware=OdroidXU4
+elif grep -q 'ODROID-C2' /proc/device-tree/model; then
+	hardware=OdroidC2
+elif grep -q 'Libre' /proc/device-tree/model; then
+	hardware=LibreLePotato
 fi
 clear
 
 #### Let's make some helpful changes and additions...
 
-if [ $hardware = RaspberryPi ];
-then
+if [ $hardware = RaspberryPi ]; then
 	echo
 	echo "Your new user will be called 'node'."
     	echo
@@ -70,8 +69,7 @@ then
   	sudo /etc/init.d/dphys-swapfile restart
 fi
 
-if [ $hardware != RaspberryPi ];
-then
+if [ $hardware != RaspberryPi ]; then
 	echo
 	echo "If you are running Armbian you created the user called 'node' and set it's password on first boot."
 	echo
@@ -99,7 +97,7 @@ sudo mkdir /mnt/ssd # can you do this quietly?
 sudo mount /dev/sda /mnt/ssd # can you do this quietly?
 echo "/dev/sda /mnt/ssd ext4 defaults 0 0" | sudo tee -a /etc/fstab
 
-#### Let's set up our Supervisor conf file so our node will keep itself online
+#### Setting up the Supervisor conf file so our node will keep itself online
 
 sudo touch /etc/supervisor/conf.d/gubiq.conf
 echo "[program:gubiq]" | sudo tee -a /etc/supervisor/conf.d/gubiq.conf
@@ -112,13 +110,12 @@ echo "stdout_logfile=/var/log/gubiq.out.log" | sudo tee -a /etc/supervisor/conf.
 echo
 clear
 
-#### Maybe you want to display your stats in public, or maybe not.
+#### If you want, you have the option to list your node on the stats page.
 
 echo
-read -p "Would you like to list your node on the Ubiq Network Stats Page? This will make your node name & stats available on 'https://ubiq.darcr.us'. (y/n)" CONT
-if [ "$CONT" = "y" ]
-then
-	sudo sed -i -e "s/--maxpeers 100/--maxpeers 100 --ethstats "temporary:password@ubiq.darcr.us"/" /etc/supervisor/conf.d/gubiq.conf
+read -p "Would you like to list your node on the Ubiq Network Stats Page? This will make your node name & stats available on 'https://ubiq.gojupiter.tech'. (y/n)" CONT
+if [ "$CONT" = "y" ]; then
+	sudo sed -i -e "s/--maxpeers 100/--maxpeers 100 --ethstats "temporary:password@ubiq-rpc.gojupiter.tech"/" /etc/supervisor/conf.d/gubiq.conf
   	echo "Type a name for your node to be displayed on the Network Stats website, then press Enter."
 	echo
   	read varname
@@ -142,15 +139,11 @@ echo
 
 #### If you are using a Raspberry Pi, SSH is not enabled by default like it is on systems running Armbian.
 
-if [ $hardware != RaspberryPi ];
-then
+if [ $hardware != RaspberryPi ]; then
 	echo "SSH is active by default with Armbian. This will allow you to log in and operate your node from another machine on your network."
-fi
-if [ $hardware = RaspberryPi ];
-then
+elif [ $hardware = RaspberryPi ]; then
 	read -p "Would you like to enable SSH on this system? This will allow you to log in and operate your node from another machine on your network. (y/n)" CONT
-	if [ $CONT = y ]
-	then
+	if [ $CONT = y ]; then
   		sudo raspi-config nonint do_ssh 0
 		echo "SSH has been enabled"
 		sleep 4
@@ -164,11 +157,10 @@ echo
 echo
 echo
 
-#### Got lot's of space on that SSD? Sync it all!  Otherwise use Fast Mode to grab just the vital bits...
+#### You can choose to sync of all block info, or sync in fast mode to save space...
 
 read -p "Would you like to set your node to "full" sync mode?  This will take more storage space and sync will take longer. (y/n)" CONT
-if [ "$CONT" = "y" ];
-then
+if [ "$CONT" = "y" ]; then
 	sudo sed -i -e "s/--maxpeers 100/--maxpeers 100 --syncmode "full" --gcmode "archive"/" /etc/supervisor/conf.d/gubiq.conf
 	echo "Your node will sync in full, including all details of all blocks."
 	sleep 4
@@ -184,8 +176,7 @@ echo
 #### You have the option of letting your system re-fetch gubiq binaries once a month.  If there is an update, it'll sort itself out.
 
 read -p "Would you like to allow your node to auto-fetch the gubiq binaries once per month?  This will keep your node on the latest release without your interaction. (y/n)" CONT
-if [ "$CONT" = "y" ]
-then
+if [ "$CONT" = "y" ]; then
 	cd
   	sudo touch auto.sh
 	sudo chmod +x auto.sh
@@ -209,20 +200,20 @@ echo
 if [ $hardware = RaspberryPi ] || [ $hardware = Tinkerboard ] || [ $hardware = OdroidXU4 ]; then
         wget https://github.com/ubiq/go-ubiq/releases/download/v3.1.0/gubiq-linux-arm-7
         echo "f733349c34e466e30abf340e4ee677dd7c462df0b7c0bf0c75c9cd0dbb15faf1  gubiq-linux-arm-7" | sha256sum -c -
-fi
-if [ $hardware = OdroidC2 ] || [ $hardware = LibreLePotato ]; then
+elif [ $hardware = OdroidC2 ] || [ $hardware = LibreLePotato ]; then
         wget https://github.com/ubiq/go-ubiq/releases/download/v3.1.0/gubiq-linux-arm64
         echo "5978700da6087fd78ffe913d90c48530e3d5f7f7927653020263b12649308194 gubiq-linux-arm64" | sha256sum -c -
 fi
 
-if [ $hardware = OdroidC2 ] || [ $hardware = LibreLePotato ]; then
-        sudo cp ./gubiq-linux-arm64 /usr/bin/gubiq
-else [ $hardware = RaspberryPi ] || [ $hardware = Tinkerboard ] || [ $hardware = OdroidXU4 ]
+if [ $hardware = RaspberryPi ] || [ $hardware = Tinkerboard ] || [ $hardware = OdroidXU4 ]; then
         sudo cp ./gubiq-linux-arm-7 /usr/bin/gubiq
+
+elif [ $hardware = OdroidC2 ] || [ $hardware = LibreLePotato ]; then
+        sudo cp ./gubiq-linux-arm64 /usr/bin/gubiq
 fi
 echo
 
-#### Lets put things where they belong and reboot the computer.
+#### Finishing up, moving home folder to the external drive and creating a symbolic link.
 
 sudo chmod +x /usr/bin/gubiq
 sudo mv /home/node /mnt/ssd
@@ -230,13 +221,13 @@ sudo ln -s /mnt/ssd/node /home
 clear
 echo
 echo
+echo "Your node's configuration is complete. Sync will begin automatically when the system restarts."
 echo
-echo "The system will now reboot and begin sync automatically..."
+read -p "Press ENTER to reboot now."
 echo
 secs=$((1 * 8))
 while [ $secs -gt 0 ]; do
    echo -ne "$secs\033[0K\r"
    sleep 1
    : $((secs--))
-done
 sudo reboot
