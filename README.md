@@ -48,8 +48,6 @@ This script is run as part of an optional cron job that re-fetches an update scr
 
 ------------------------------------------------------------------------------------------------------------------------------
 
-Software downloads; apt-related system software, [supervisor](http://supervisord.org/), [htop](https://hisham.hm/htop/), [git](https://git-scm.com/), [ntp](http://www.ntp.org/), [gubiq](https://github.com/ubiq/go-ubiq/releases)
-
 ## **[old-node.sh](https://raw.githubusercontent.com/maaatttt/ubiq/master/old-node.sh)** 
 
 **DEPRICATED**
