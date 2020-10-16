@@ -207,7 +207,6 @@ fi
 
 if [ $hardware = RaspberryPi ] || [ $hardware = Tinkerboard ] || [ $hardware = OdroidXU4 ]; then
         sudo cp ./gubiq-linux-arm-7 /usr/bin/gubiq
-
 elif [ $hardware = OdroidC2 ] || [ $hardware = LibreLePotato ]; then
         sudo cp ./gubiq-linux-arm64 /usr/bin/gubiq
 fi
