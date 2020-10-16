@@ -31,6 +31,7 @@ elif [ $hardware = OdroidC2 ] || [ $hardware = LibreLePotato ]; then
         sudo cp ./gubiq-linux-arm64 /usr/bin/gubiq
 fi
 
+sudo chmod +x /usr/bin/gubiq
 sudo supervisorctl start gubiq
 sudo rm $0
 sudo reboot
