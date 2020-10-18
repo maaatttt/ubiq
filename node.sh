@@ -102,15 +102,17 @@ echo "/dev/sda /mnt/ssd ext4 defaults 0 0" | sudo tee -a /etc/fstab
 
 #### Setting up the Supervisor conf file so our node will keep itself online
 
-sudo touch /etc/supervisor/conf.d/gubiq.conf
-echo "[program:gubiq]" | sudo tee -a /etc/supervisor/conf.d/gubiq.conf
-echo "command=/usr/bin/gubiq --verbosity 3 --rpc --rpcaddr "127.0.0.1" --rpcport "8588" --rpcapi "eth,net,web3" --maxpeers 100" | sudo tee -a /etc/supervisor/conf.d/gubiq.conf
-echo "user=node" | sudo tee -a /etc/supervisor/conf.d/gubiq.conf
-echo "autostart=true" | sudo tee -a /etc/supervisor/conf.d/gubiq.conf
-echo "autorestart=true" | sudo tee -a /etc/supervisor/conf.d/gubiq.conf
-echo "stderr_logfile=/var/log/gubiq.err.log" | sudo tee -a /etc/supervisor/conf.d/gubiq.conf
-echo "stdout_logfile=/var/log/gubiq.out.log" | sudo tee -a /etc/supervisor/conf.d/gubiq.conf
-echo
+touch /etc/supervisor/conf.d/gubiq.conf
+tee /etc/supervisor/conf.d/gubiq.conf &>/dev/null <<"EOF"
+[program:gubiq]
+command=/usr/bin/gubiq --verbosity 3 --rpc --rpcaddr "127.0.0.1" --rpcport "8588" --rpcapi "eth,net,web3" --maxpeers 100
+user=node
+autostart=true
+autorestart=true
+stderr_logfile=/var/log/gubiq.err.log
+stdout_logfile=/var/log/gubiq.out.log
+
+EOF
 clear
 
 #### If you want, you have the option to list your node on the stats page.
