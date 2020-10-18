@@ -31,9 +31,10 @@ This script will handle setup on the following systems;
 - Libre LePotato running Armbian
 
 EOF
-read -p "Press enter to continue to setup."
+read -p "Press ENTER to continue to setup."
 
-#### A list of compatible hardware, which will be updated as new options become available and have been tested.
+#### Setting variables naming the hardware being used, and its architecture.  
+#### Any hardware variants discoverd to work with this script will be added over time.
 
 if grep -q 'Raspberry' /proc/device-tree/model; then
 	hardware=RaspberryPi
@@ -53,19 +54,20 @@ elif grep -q 'Libre' /proc/device-tree/model; then
 fi
 clear
 
-#### Let's make some helpful changes and additions...
+#### Raspberry Pi's will create a new user called "node" and assign permissions.  Armbian systems will remind about certain settings.
 
 if [ $hardware = RaspberryPi ]; then
+cat << "EOF"
+Your new user will be called 'node'.
+
+You will now be prompted to set a password for your new user...
+
+When prompted to fill in personal details, you may leave it blank.
+
+Welcome to Ubiq!
+EOF
 	echo
-	echo "Your new user will be called 'node'."
-    	echo
-    	echo "You will now be prompted to set a password for your new user..."
-	echo
-    	echo "When prompted to fill in personal details, you may leave it blank."
-    	echo
-    	echo "Welcome to Ubiq!"
-	echo
-  	read -p "Press enter to continue..."
+  	read -p "Press ENTER to continue..."
 	clear
 	sudo adduser node
   	sudo usermod -G sudo node
@@ -73,19 +75,22 @@ if [ $hardware = RaspberryPi ]; then
   	sudo /etc/init.d/dphys-swapfile restart
 
 elif [ $hardware != RaspberryPi ]; then
-	echo
-	echo "If you are running Armbian you created the user called 'node' and set it's password on first boot."
-	echo
-	echo "You should have also set up the network connection & adjusted the timezone settings."
+cat << "EOF
+If you are running Armbian you created the user called 'node' and set it's password on first boot.
+
+You should have also set up the network connection & adjusted the timezone settings.
+
+When the setup process is complete, your system will restart.
+
+Welcome to Ubiq!
+EOF
   	echo
-  	echo "When the setup process is complete, your system will restart."
-  	echo
-  	echo "Welcome to Ubiq!"
-  	echo
-	read -p "Press enter to continue..."
+	read -p "Press ENTER to continue..."
 fi
 
 clear
+
+#### Update, Upgrade, Optimize & install NTP, HTOP, Supervisor and git
 
 sudo apt update -q
 sudo apt upgrade -y -q
@@ -95,12 +100,12 @@ sudo apt install ntp -y -q
 sudo apt install htop -q
 sudo apt install supervisor -y -q
 sudo apt install git -y -q
-sudo mkfs.ext4 /dev/sda -L UBIQ # can you do this quietly?
-sudo mkdir /mnt/ssd # can you do this quietly?
-sudo mount /dev/sda /mnt/ssd # can you do this quietly?
+sudo mkfs.ext4 /dev/sda -L UBIQ
+sudo mkdir /mnt/ssd
+sudo mount /dev/sda /mnt/ssd
 echo "/dev/sda /mnt/ssd ext4 defaults 0 0" | sudo tee -a /etc/fstab
 
-#### Setting up the Supervisor conf file so our node will keep itself online
+#### Setting up the Supervisor conf file. This file allows Supervisor to keep gubiq processes constantly alive.
 
 touch /etc/supervisor/conf.d/gubiq.conf
 tee /etc/supervisor/conf.d/gubiq.conf &>/dev/null <<"EOF"
@@ -115,7 +120,7 @@ stdout_logfile=/var/log/gubiq.out.log
 EOF
 clear
 
-#### If you want, you have the option to list your node on the stats page.
+#### Giving the user the option to list their node on the Ubiq Network stats page, found at 'https://ubiq.gojupiter.tech'.
 
 echo
 read -p "Would you like to list your node on the Ubiq Network Stats Page? This will make your node name & stats available on 'https://ubiq.gojupiter.tech'. (y/n)" CONT
@@ -129,7 +134,7 @@ if [ "$CONT" = "y" ]; then
   	echo "Your node will be named $varname"
   	echo
   	sleep 4
-  	echo "Enter the secret to list your node on the Ubiq Stats Page, then press Enter."
+  	echo "Enter the secret to list your node on the Ubiq Stats Page, then press ENTER."
   	echo
   	read varpass
   	sudo sed -i -e "s/password/$varpass/" /etc/supervisor/conf.d/gubiq.conf
@@ -139,7 +144,7 @@ else
 fi
 yes '' | sed 5q
 
-#### If you are using a Raspberry Pi, SSH is not enabled by default like it is on systems running Armbian.
+#### If you are using Raspberry Pi OS, SSH is not enabled by default like it is on systems running Armbian.
 
 if [ $hardware != RaspberryPi ]; then
 	echo "SSH is active by default with Armbian. This will allow you to log in and operate your node from another machine on your network."
@@ -156,12 +161,12 @@ elif [ $hardware = RaspberryPi ]; then
 fi
 yes '' | sed 5q
 
-#### You can choose to sync of all block info, or sync in fast mode to save space...
+#### Giving the user the option to sync all blocks in full, or sync in "fast" mode which saves space...
 
-read -p "Would you like to set your node to "full" sync mode?  This will take more storage space and sync will take longer. (y/n)" CONT
+read -p "Would you like to set your node to sync in 'full archive' mode?  This will take more storage space and sync will take longer. (y/n)" CONT
 if [ "$CONT" = "y" ]; then
 	sudo sed -i -e "s/--maxpeers 100/--maxpeers 100 --syncmode "full" --gcmode "archive"/" /etc/supervisor/conf.d/gubiq.conf
-	echo "Your node will sync in full, including all details of all blocks."
+	echo "Your node will sync in 'full archive' mode."
 	sleep 4
 else
 	echo "Your node will sync in 'fast' mode"
@@ -169,18 +174,19 @@ else
 fi
 yes '' | sed 5q
 
-#### You have the option of letting your system re-fetch gubiq binaries once a month.  If there is an update, it'll sort itself out.
+#### Giving the user an option to let the system automatically update gubiq using a cron job.
 
-read -p "Would you like to allow your node to auto-fetch the gubiq binaries once per month?  This will keep your node on the latest release without your interaction. (y/n)" CONT
+read -p "Would you like your node to auto-fetch the gubiq binary file monthly?   If a new gubiq version is released, it will automatically update. (y/n)" CONT
 if [ "$CONT" = "y" ]; then
-	cd
-  	sudo touch auto.sh
-	sudo chmod +x auto.sh
-	echo "#!/bin/bash" | sudo tee -a auto.sh
-  	echo "" | sudo tee -a auto.sh
-  	echo "wget https://raw.githubusercontent.com/maaatttt/ubiq/master/gu.sh" | sudo tee -a auto.sh
-  	echo "sudo chmod +x gu.sh" | sudo tee -a auto.sh
-  	echo "./gu.sh" | sudo tee -a auto.sh
+	touch auto.sh
+	chmod +x auto.sh
+	tee auto.sh &>/dev/null << "EOF"
+#!/bin/bash
+
+wget https://raw.githubusercontent.com/maaatttt/ubiq/master/gu.sh
+sudo chmod +x gu.sh
+./gu.sh
+EOF
   	echo "@monthly ./auto.sh" | crontab -
 	echo "Your node will download the most current version of gubiq, and restart its processes on the first of every month"
 	sleep 6
@@ -190,8 +196,8 @@ else
 fi
 echo
 
-#### Your system will pick the correct binary file to download based on how it was defined at the beginning of this script.
-#### The checksum will be validated.  If valid the script will complete the setup, if invalid it will exit setup.
+#### System will determine the correct binary file to download based on how it was defined at the beginning of this script.
+#### The binary file's checksum will be validated.  If it is valid, the script will complete the setup. If it is invalid, it will exit setup.
 
 if [ $arch = 32bit ]; then
         wget https://github.com/ubiq/go-ubiq/releases/download/v3.1.0/gubiq-linux-arm-7
@@ -204,7 +210,7 @@ elif [ $arch = 64bit ]; then
 fi
 echo
 
-#### Finishing up, moving home folder to the external drive and creating a symbolic link.
+#### Changing permissions, moving and linking the user's home folder, and rebooting the system to begin blockchain sync.
 
 sudo chmod +x /usr/bin/gubiq
 sudo mv /home/node /mnt/ssd
