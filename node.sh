@@ -1,51 +1,55 @@
 #!/bin/bash
 clear
-echo
-echo
-echo "88888      88  8888888888o     88888      o888888o"
-echo "88888      88  88888     88    88888    8888      88"
-echo "88888      88  88888      88   88888   88888        8b"
-echo "88888      88  88888      88   88888  888888         8b"
-echo "88888      88  88888     88    88888  888888         88"
-echo "88888      88  88888888888     88888  888888      8  88"
-echo "88888      88  88888     88    88888  888888       8 8P"
-echo "88888      8P  88888      88   88888   88888        8P"
-echo " 8888    d8P   88888     88    88888    8888      88 8 "
-echo "  Y888888P     8888888888P     88888      8888888P    8 "
+yes '' | sed 4q
+cat << "EOF"
+88888      88  88888888888     88888      88888888
+88888      88  88888     88    88888    8888      88
+88888      88  88888      88   88888   88888        88
+88888      88  88888      88   88888  888888         88
+88888      88  88888     88    88888  888888         88
+88888      88  88888888888     88888  888888      8  88
+88888      88  88888      88   88888  888888       8 88
+88888      88  88888       88  88888   88888        88
+ 8888    888   88888      88   88888    8888      88 8
+  88888888     88888888888     88888      88888888    8
 
-#### WELCOME! Are you using the right hardware?
 
-echo
-echo
-echo
-echo "Thank you for supporting the Ubiq network by running a node!"
-echo
-echo "This is meant to handle setup on the following systems..."
-echo
-echo " - Raspberry Pi 2B, 3B, 3B+, or 4B running Raspbian or Raspbian Lite "
-echo
-echo " - Odroid C2 running Armbian "
-echo
-echo " - Odroid XU4 running Armbian "
-echo
-echo " - Asus Tinkerboard, Tinkerboard S running Armbian "
-echo
-echo " - Libre LePotato running Armbian "
-echo
+
+
+Thank you for supporting the Ubiq network by maintaining a node!
+
+This script will handle setup on the following systems;
+
+- Raspberry Pi 3B, 3B+, or 4B running Raspberry Pi OS or Raspberry Pi OS Lite
+
+- Asus Tinkerboard / Tinkerboard S running Armbian
+
+- Odroid XU4 running Armbian
+
+- Odroid C2 running Armbian
+
+- Libre LePotato running Armbian
+
+EOF
 read -p "Press enter to continue to setup."
 
 #### A list of compatible hardware, which will be updated as new options become available and have been tested.
 
 if grep -q 'Raspberry' /proc/device-tree/model; then
 	hardware=RaspberryPi
+	arch=32bit
 elif grep -q 'Tinker' /proc/device-tree/model; then
 	hardware=Tinkerboard
+	arch=32bit
 elif grep -q 'XU4' /proc/device-tree/model; then
 	hardware=OdroidXU4
+	arch=32bit
 elif grep -q 'ODROID-C2' /proc/device-tree/model; then
 	hardware=OdroidC2
+	arch=64bit
 elif grep -q 'Libre' /proc/device-tree/model; then
 	hardware=LibreLePotato
+	arch=64bit
 fi
 clear
 
@@ -67,9 +71,8 @@ if [ $hardware = RaspberryPi ]; then
   	sudo usermod -G sudo node
   	sudo sed -i -e "s/CONF_SWAPSIZE=100/CONF_SWAPSIZE=2048/" /etc/dphys-swapfile
   	sudo /etc/init.d/dphys-swapfile restart
-fi
 
-if [ $hardware != RaspberryPi ]; then
+elif [ $hardware != RaspberryPi ]; then
 	echo
 	echo "If you are running Armbian you created the user called 'node' and set it's password on first boot."
 	echo
@@ -132,10 +135,7 @@ if [ "$CONT" = "y" ]; then
 else
 	echo "Your node will not be listed on the public site..."
 fi
-echo
-echo
-echo
-echo
+yes '' | sed 5q
 
 #### If you are using a Raspberry Pi, SSH is not enabled by default like it is on systems running Armbian.
 
@@ -152,10 +152,7 @@ elif [ $hardware = RaspberryPi ]; then
   		sleep 4
 	fi
 fi
-echo
-echo
-echo
-echo
+yes '' | sed 5q
 
 #### You can choose to sync of all block info, or sync in fast mode to save space...
 
@@ -168,10 +165,7 @@ else
 	echo "Your node will sync in 'fast' mode"
 	sleep 4
 fi
-echo
-echo
-echo
-echo
+yes '' | sed 5q
 
 #### You have the option of letting your system re-fetch gubiq binaries once a month.  If there is an update, it'll sort itself out.
 
@@ -197,17 +191,13 @@ echo
 #### Your system will pick the correct binary file to download based on how it was defined at the beginning of this script.
 #### The checksum will be validated.  If valid the script will complete the setup, if invalid it will exit setup.
 
-if [ $hardware = RaspberryPi ] || [ $hardware = Tinkerboard ] || [ $hardware = OdroidXU4 ]; then
+if [ $arch = 32bit ]; then
         wget https://github.com/ubiq/go-ubiq/releases/download/v3.1.0/gubiq-linux-arm-7
-        echo "f733349c34e466e30abf340e4ee677dd7c462df0b7c0bf0c75c9cd0dbb15faf1  gubiq-linux-arm-7" | sha256sum -c -
-elif [ $hardware = OdroidC2 ] || [ $hardware = LibreLePotato ]; then
-        wget https://github.com/ubiq/go-ubiq/releases/download/v3.1.0/gubiq-linux-arm64
-        echo "5978700da6087fd78ffe913d90c48530e3d5f7f7927653020263b12649308194 gubiq-linux-arm64" | sha256sum -c -
-fi
-
-if [ $hardware = RaspberryPi ] || [ $hardware = Tinkerboard ] || [ $hardware = OdroidXU4 ]; then
+        echo "f733349c34e466e30abf340e4ee677dd7c462df0b7c0bf0c75c9cd0dbb15faf1  gubiq-linux-arm-7" | sha256sum -c - || exit 1
         sudo cp ./gubiq-linux-arm-7 /usr/bin/gubiq
-elif [ $hardware = OdroidC2 ] || [ $hardware = LibreLePotato ]; then
+elif [ $arch = 64bit ]; then
+        wget https://github.com/ubiq/go-ubiq/releases/download/v3.1.0/gubiq-linux-arm64
+        echo "5978700da6087fd78ffe913d90c48530e3d5f7f7927653020263b12649308194 gubiq-linux-arm64" | sha256sum -c - || exit 1
         sudo cp ./gubiq-linux-arm64 /usr/bin/gubiq
 fi
 echo
@@ -218,8 +208,7 @@ sudo chmod +x /usr/bin/gubiq
 sudo mv /home/node /mnt/ssd
 sudo ln -s /mnt/ssd/node /home
 clear
-echo
-echo
+yes '' | sed 4q
 echo "Your node's configuration is complete. Sync will begin automatically when the system restarts."
 echo
 read -p "Press ENTER to reboot now."
