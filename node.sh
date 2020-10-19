@@ -75,7 +75,7 @@ EOF
   	sudo /etc/init.d/dphys-swapfile restart
 
 elif [ $hardware != RaspberryPi ]; then
-cat << "EOF
+cat << "EOF"
 If you are running Armbian you created the user called 'node' and set it's password on first boot.
 
 You should have also set up the network connection & adjusted the timezone settings.
