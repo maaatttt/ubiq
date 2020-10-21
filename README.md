@@ -24,7 +24,7 @@ https://www.armbian.com/).
   - For Raspberry Pi, SSH is disabled by default.  [Enabled by placing file named **`ssh`** in boot partition of the SD card. ](https://www.raspberrypi.org/documentation/remote-access/ssh/)
   
 - [ ] First boot / Log In
-  - Connect an new or formatted (ext4) SSD drive to the system before starting up. 
+  - Connect an new or formatted (ext4) SSD drive to the system after starting up. 
   
   - Logging in via SSH -
     - **`Raspberry Pi`;** -  log in with **`ssh user@youripaddress`**
