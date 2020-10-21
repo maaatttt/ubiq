@@ -1,20 +1,55 @@
 # **_Ubiq_**
-## Bash scripts related to configuring and maintaining nodes for the Ubiq blockchain using ARM-based single-board computers.
+## ARM-based single-board computers as nodes for the Ubiq blockchain.
 ------------------------------------------------------------------------------------------------------------------------------
 
-This README provides further detail about the various bash scripts used in [guides](https://blog.ubiqsmart.com/tagged/tutorial) produced for the _[Ubiq Community](https://www.ubiqescher.com/)_ to encourage and assist network participants to operate their own independant node. 
+This README provides some general instructions for the initial setup of the system, and some detail about the various bash scripts used in [guides](https://blog.ubiqsmart.com/tagged/tutorial) produced for the _[Ubiq Community](https://www.ubiqescher.com/)_ to encourage anyone who is interested to set up their own node. 
 
-These scripts & guides do not generate accounts or private keys, nor instruct users how to do so.  
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-There may be further instructionals in the future related to operators broadcasting their own transactions with their node via a wallet such as [Pyrus](https://pyrus.ubiqsmart.com/), however there is no intention to instruct users to store funds within the gubiq instance running on their node.
+## These steps assume a wired, headless setup, accessed via SSH.
 
-The nodes generated through these methods are intended to act as an archive, an access point, and a peer.  
+- [ ] Download the OS for your hardware -
 
-They are not intended to be a wallet!
+- Raspberry Pi uses [Raspberry Pi OS](https://www.raspberrypi.org/downloads/raspberry-pi-os/), the other boards use [Armbian](
+https://www.armbian.com/).
+  - [Raspberry Pi](https://downloads.raspberrypi.org/raspios_lite_armhf_latest)
+  - [Asus Tinkerboard](https://redirect.armbian.com/tinkerboard/Focal_current)
+  - [OdroidXU4](https://redirect.armbian.com/odroidxu4/Buster_legacy)
+  - [OdroidC2](https://redirect.armbian.com/odroidc2/Buster_current)
+  - [Libre Le Potato](https://redirect.armbian.com/lepotato/Buster_current_minimal)
+  
+- [ ]  Flash OS to microSD card.
 
-Please read the file descriptions below carefully to ensure you are using the correct version for your system.
+  - Use [Etcher](https://www.balena.io/etcher/) to flash the OS to your microSD card.
+  - For Raspberry Pi, SSH is disabled by default.  [Enabled by placing file named **`ssh`** in boot partition of the SD card. ](https://www.raspberrypi.org/documentation/remote-access/ssh/)
+  
+- [ ] First boot / Log In
+  - Connect an new or formatted (ext4) SSD drive to the system before starting up. 
+  
+  - Logging in via SSH -
+    - **`Raspberry Pi`;** -  log in with **`ssh user@youripaddress`**
+    
+    - **`Armbian`;** -     log in with **`ssh user@youripaddress`**
+  
+  - Raspberry Pi;  `user` : **`pi`** / `passwd` : **`raspberry`**
+  - Armbian;  `user` : **`root`** / `passwd` : **`1234`**
+  
+- [ ] Set your timezone
+    - Raspberry Pi - **`raspi-config`**
+    - Armbian - **`armbian-config`**
+    
+- [ ] Download and run the **`node`**.sh setup script. Follow the prompts. After the system reboots, your node will sync the blockchain.
+    - **`wget https://raw.githubusercontent.com/maaatttt/ubiq/master/node.sh`**
+    - **`sudo chmod +x node.sh`**
+    - **`./node.sh`**
 
-##
+- [ ] Watching the progess
+    - Log in as *node* with whatever password you gave it.
+    - **`cd /var/log`**
+    - **`tail -f gubiq.err.log`**
+    - **`Ctrl + C`** to exit
+
+-------------------------------------------------------------------------------------------------------------------------------
 
 ## **[node.sh](https://raw.githubusercontent.com/maaatttt/ubiq/master/node.sh)** 
 
