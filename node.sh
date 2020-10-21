@@ -36,6 +36,8 @@ read -p "Press ENTER to continue to setup."
 #### Setting variables naming the hardware being used, and its architecture.  
 #### Any hardware variants discoverd to work with this script will be added over time.
 
+node_ip=$(hostname -I | cut -f1 -d' ')
+
 if grep -q 'Raspberry' /proc/device-tree/model; then
 	hardware=RaspberryPi
 	arch=32bit
@@ -76,7 +78,7 @@ EOF
 
 elif [ $hardware != RaspberryPi ]; then
 cat << "EOF"
-If you are running Armbian you created the user called 'node' and set it's password on first boot.
+If you are running Armbian, you created the user called 'node' and set it's password on first boot.
 
 You should have also set up the network connection & adjusted the timezone settings.
 
@@ -110,7 +112,7 @@ echo "/dev/sda /mnt/ssd ext4 defaults 0 0" | sudo tee -a /etc/fstab
 touch /etc/supervisor/conf.d/gubiq.conf
 tee /etc/supervisor/conf.d/gubiq.conf &>/dev/null <<"EOF"
 [program:gubiq]
-command=/usr/bin/gubiq --verbosity 3 --rpc --rpcaddr "127.0.0.1" --rpcport "8588" --rpcapi "eth,net,web3" --maxpeers 100
+command=/usr/bin/gubiq --verbosity 3 --http --http.addr "127.0.0.1" --http.port "8588" --http.api "eth,net,web3" --http.corsdomain "*" --http.vhosts "*" --maxpeers 100
 user=node
 autostart=true
 autorestart=true
@@ -118,12 +120,14 @@ stderr_logfile=/var/log/gubiq.err.log
 stdout_logfile=/var/log/gubiq.out.log
 
 EOF
+
+sed -i -e "s/127.0.0.1/$node_ip/" /etc/supervisor/conf.d/gubiq.conf
 clear
 
 #### Giving the user the option to list their node on the Ubiq Network stats page, found at 'https://ubiq.gojupiter.tech'.
 
 echo
-read -p "Would you like to list your node on the Ubiq Network Stats Page? This will make your node name & stats available on 'https://ubiq.gojupiter.tech'. (y/n)" CONT
+read -p "Would you like to be listed on the Ubiq Network Stats Page? Your node name & and some details would be publicly available on 'https://ubiq.gojupiter.tech'. (y/n)" CONT
 if [ "$CONT" = "y" ]; then
 	sudo sed -i -e "s/--maxpeers 100/--maxpeers 100 --ethstats "temporary:password@ubiq-rpc.gojupiter.tech"/" /etc/supervisor/conf.d/gubiq.conf
   	echo "Type a name for your node to be displayed on the Network Stats website, then press Enter."
@@ -176,7 +180,7 @@ yes '' | sed 5q
 
 #### Giving the user an option to let the system automatically update gubiq using a cron job.
 
-read -p "Would you like your node to auto-fetch the gubiq binary file monthly?   If a new gubiq version is released, it will automatically update. (y/n)" CONT
+read -p "Would you like your node to download the most currnet gubiq binary file monthly?   If a new version is released, this will automatically replace the outdated one. (y/n)" CONT
 if [ "$CONT" = "y" ]; then
 	touch auto.sh
 	chmod +x auto.sh
