@@ -33,7 +33,7 @@ This script will handle setup on the following systems;
 EOF
 read -p "Press ENTER to continue to setup."
 
-#### Setting variables naming the hardware being used, and its architecture.  
+#### Setting variables naming the hardware being used, and its architecture.
 #### Any hardware variants discoverd to work with this script will be added over time.
 
 node_ip=$(hostname -I | cut -f1 -d' ')
@@ -86,7 +86,7 @@ When the setup process is complete, your system will restart.
 
 Welcome to Ubiq!
 EOF
-  	echo
+echo
 	read -p "Press ENTER to continue..."
 fi
 
@@ -225,7 +225,7 @@ sudo mv /home/node /mnt/ssd
 sudo ln -s /mnt/ssd/node /home
 clear
 yes '' | sed 4q
-echo "Your node's configuration is complete. Sync will begin automatically when the system restarts."
+echo "The setup is complete. Sync will begin automatically when the system restarts."
 echo
 read -p "Press ENTER to reboot now."
 echo
