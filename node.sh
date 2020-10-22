@@ -109,8 +109,8 @@ echo "/dev/sda /mnt/ssd ext4 defaults 0 0" | sudo tee -a /etc/fstab
 
 #### Setting up the Supervisor conf file. This file allows Supervisor to keep gubiq processes constantly alive.
 
-touch /etc/supervisor/conf.d/gubiq.conf
-tee /etc/supervisor/conf.d/gubiq.conf &>/dev/null <<"EOF"
+sudo touch /etc/supervisor/conf.d/gubiq.conf
+sudo tee /etc/supervisor/conf.d/gubiq.conf &>/dev/null <<"EOF"
 [program:gubiq]
 command=/usr/bin/gubiq --verbosity 3 --http --http.addr "127.0.0.1" --http.port "8588" --http.api "eth,net,web3" --http.corsdomain "*" --http.vhosts "*" --maxpeers 100
 user=node
@@ -121,7 +121,7 @@ stdout_logfile=/var/log/gubiq.out.log
 
 EOF
 
-sed -i -e "s/127.0.0.1/$node_ip/" /etc/supervisor/conf.d/gubiq.conf
+sudo sed -i -e "s/127.0.0.1/$node_ip/" /etc/supervisor/conf.d/gubiq.conf
 clear
 
 #### Giving the user the option to list their node on the Ubiq Network stats page, found at 'https://ubiq.gojupiter.tech'.
@@ -143,7 +143,10 @@ if [ "$CONT" = "y" ]; then
   	read varpass
   	sudo sed -i -e "s/password/$varpass/" /etc/supervisor/conf.d/gubiq.conf
   	echo
+	echo "Your node will be listed..."
+	echo
 else
+	echo
 	echo "Your node will not be listed on the public site..."
 fi
 yes '' | sed 5q
@@ -156,6 +159,7 @@ elif [ $hardware = RaspberryPi ]; then
 	read -p "Would you like to enable SSH on this system? This will allow you to log in and operate your node from another machine on your network. (y/n)" CONT
 	if [ $CONT = y ]; then
   		sudo raspi-config nonint do_ssh 0
+		echo
 		echo "SSH has been enabled"
 		sleep 4
 	else
