@@ -47,9 +47,15 @@ https://www.armbian.com/).
     - Log in as *node* with whatever password you gave it.
     - **`cd /var/log`**
     - **`tail -f gubiq.err.log`**
-    - **`Ctrl + C`** to exit
+    - **`Ctrl + C`** to exit to shell
+
+Enjoy!
 
 -------------------------------------------------------------------------------------------------------------------------------
+
+## The various current and depricated scripts used here - 
+
+
 
 ## **[node.sh](https://raw.githubusercontent.com/maaatttt/ubiq/master/node.sh)** 
 
