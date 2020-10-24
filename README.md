@@ -37,8 +37,8 @@ https://www.armbian.com/).
 - [ ] Set your timezone
     - Raspberry Pi - **`raspi-config`**
     - Armbian - **`armbian-config`**
-    
-- [ ] Download and run the **`node`**.sh setup script. Follow the prompts. After the system reboots, your node will sync the blockchain.
+
+- [ ] Download and run the **`node.sh`** setup script. Follow the prompts. After the system reboots, your node will sync the blockchain.
     - **`wget https://raw.githubusercontent.com/maaatttt/ubiq/master/node.sh`**
     - **`sudo chmod +x node.sh`**
     - **`./node.sh`**
