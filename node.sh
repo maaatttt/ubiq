@@ -174,10 +174,12 @@ yes '' | sed 5q
 read -p "Would you like to set your node to sync in 'full archive' mode?  This will take more storage space and sync will take longer. (y/n)" CONT
 if [ "$CONT" = "y" ]; then
 	sudo sed -i -e "s/--maxpeers 100/--maxpeers 100 --syncmode "full" --gcmode "archive"/" /etc/supervisor/conf.d/gubiq.conf
-	echo "Your node will sync in 'full archive' mode."
+  echo
+  echo "Your node will sync in 'full archive' mode."
 	sleep 4
 else
-	echo "Your node will sync in 'fast' mode"
+  echo
+  echo "Your node will sync in 'fast' mode"
 	sleep 4
 fi
 yes '' | sed 5q
@@ -195,12 +197,14 @@ wget https://raw.githubusercontent.com/maaatttt/ubiq/master/gu.sh
 sudo chmod +x gu.sh
 ./gu.sh
 EOF
-  	echo "@monthly ./auto.sh" | crontab -
-	echo "Your node will download the most current version of gubiq, and restart its processes on the first of every month"
+  echo "@monthly ./auto.sh" | crontab -
+  echo
+  echo "Your node will download the most current version of gubiq, and restart its processes on the first of every month"
 	sleep 6
 else
-  	echo "Your node will NOT automatically update gubiq.  All updates must be handled manually!"
-  	sleep 4
+  echo
+  echo "Your node will NOT automatically update gubiq.  All updates must be handled manually!"
+  sleep 4
 fi
 echo
 
