@@ -91,7 +91,7 @@ This script is run as part of an optional cron job that re-fetches an update scr
 
 ## **[old-node.sh](https://raw.githubusercontent.com/maaatttt/ubiq/master/old-node.sh)** 
 
-**DEPRICATED**
+**_DEPRICATED_**
 
 This script handles all the commands for the primary Ubiq node setup procedure.  It will configure directories, download requisite software, and prompt the user for inputs such as node name, passwords, and desired sync method. 
 
@@ -103,7 +103,7 @@ Software downloads; apt-related system software, [supervisor](http://supervisord
 
 ## **[old-node2.sh](https://raw.githubusercontent.com/maaatttt/ubiq/master/old-node2.sh)**
 
-**DEPRICATED**
+**_DEPRICATED_**
 
 This script handles all the commands for the primary Ubiq node setup procedure.  It will configure directories, download requisite software, and prompt the user for inputs such as node name, passwords, and desired sync method.
 
@@ -115,7 +115,7 @@ Software downloads; apt-related system software, [supervisor](http://supervisord
 
 ## **[old-node3.sh](https://raw.githubusercontent.com/maaatttt/ubiq/master/old-node3.sh)** 
 
-**DEPRICATED**
+**_DEPRICATED_**
 
 This script handles all the commands for the primary Ubiq node setup procedure.  It will configure directories, download requisite software, and prompt the user for inputs such as node name, passwords, and desired sync method.
 
@@ -127,7 +127,7 @@ Software downloads; apt-related system software, [supervisor](http://supervisord
 
 ## **[old-node4.sh](https://raw.githubusercontent.com/maaatttt/ubiq/master/old-node4.sh)** 
 
-**DEPRICATED**
+**_DEPRICATED_**
 
 This script handles all the commands for the primary Ubiq node setup procedure.  It will configure directories, download requisite software, and prompt the user for inputs such as node name, passwords, and desired sync method.
 
@@ -139,7 +139,7 @@ Software downloads; apt-related system software, [supervisor](http://supervisord
 
 ## **[old-gu2.sh](https://raw.githubusercontent.com/maaatttt/ubiq/master/old-gu2.sh)**
 
-**DEPRICATED**
+**_DEPRICATED_**
 
 This script handles all the commands to update the running instance of gubiq on a system configured using **node3.sh**.  To simplify the procedure for future updates, the gu.sh script will delete itself upon completion of the it's task.
 
@@ -164,7 +164,7 @@ Software downloads; apt-related system software,  [gubiq](https://github.com/ubi
 
 ## **[old-auto2.sh](https://raw.githubusercontent.com/maaatttt/ubiq/master/old-auto2.sh)**
 
-**DEPRICATED**
+**_DEPRICATED_**
 
 This script is run as part of an optional cron job that re-fetches an update script monthly. It is downloaded as part of the initial node setup script.  The updater downloads the [gu2.sh](https://raw.githubusercontent.com/maaatttt/ubiq/master/gu2.sh) script, which runs the update commands, then deletes itself to prevent file name conflict when the cron job runs again the following month.  
 
