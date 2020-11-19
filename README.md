@@ -49,6 +49,12 @@ https://www.armbian.com/).
     - **`tail -f gubiq.err.log`**
     - **`Ctrl + C`** to exit to shell
 
+- [ ] When there is a new gubiq release available for your system, you can update using the following commands:
+    - Log in as *pi* or *root* depending on your system.
+    - **`wget https://raw.githubusercontent.com/maaatttt/ubiq/master/gu.sh`**
+    - **`chmod +x gu.sh`**
+    - **`./gu.sh`**
+
 Enjoy!
 
 -------------------------------------------------------------------------------------------------------------------------------
