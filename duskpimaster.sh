@@ -89,6 +89,10 @@ echo
 	read -p "Press ENTER to continue..."
 fi
 
+# Update and Upgrade the system.
+apt update
+apt full-upgrade -y
+
 # Download Part 1 and Part 2 of the Dusk setup.
 # Part 1 script is run as "root" and Part 2 script is run as "dusk".
 wget https://raw.githubusercontent.com/maaatttt/ubiq/master/duskpi1.sh
