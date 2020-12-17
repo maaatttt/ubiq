@@ -2,6 +2,23 @@
 
 # As "root" user.
 
+if grep -q 'Raspberry' /proc/device-tree/model; then
+	hardware=RaspberryPi
+	arch=32bit
+elif grep -q 'Tinker' /proc/device-tree/model; then
+	hardware=Tinkerboard
+	arch=32bit
+elif grep -q 'XU4' /proc/device-tree/model; then
+	hardware=OdroidXU4
+	arch=32bit
+elif grep -q 'ODROID-C2' /proc/device-tree/model; then
+	hardware=OdroidC2
+	arch=64bit
+elif grep -q 'Libre' /proc/device-tree/model; then
+	hardware=LibreLePotato
+	arch=64bit
+fi
+
 if [ $hardware = RaspberryPi ]; then
 sudo -i
 fi
