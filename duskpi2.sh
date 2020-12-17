@@ -14,7 +14,7 @@ npm run build
 
 # Create & edit the .dusk Supervisor dir, and related file to manage Caddy
 mkdir -p /home/dusk/.dusk/supervisor
-sudo -S tee /home/dusk/.dusk/supervisor/caddy.conf &>/dev/null <<"EOF"
+sudo tee -a /home/dusk/.dusk/supervisor/caddy.conf &>/dev/null <<"EOF"
 [program:caddy]
 command=/usr/bin/caddy run --config /etc/caddy/caddy.conf --adapter=caddyfile
 autostart=true
@@ -25,7 +25,7 @@ stdout_logfile=/var/log/caddy.out.log
 EOF
 
 # Create & edit the Supervisor file to manage Dusk
-sudo -S tee /home/dusk/.dusk/supervisor/dusk.conf &>/dev/null <<"EOF"
+sudo tee -a /home/dusk/.dusk/supervisor/dusk.conf &>/dev/null <<"EOF"
 [program:dusk]
 command=/usr/bin/npm run start
 directory=/home/dusk/dusk
