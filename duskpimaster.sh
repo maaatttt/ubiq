@@ -108,7 +108,7 @@ runuser -l dusk -c 'sudo -S chmod +x /home/dusk/duskpi2.sh'
 ./duskpi1.sh
 
 # Run Part 2 script ( command is run as user "dusk" ) once Part 1 script completes.
-runuser -l dusk -c ./duskpi2.sh
+runuser -l dusk -c './duskpi2.sh'
 
 # Once Part 2 script completes, restart Supervisor processes to activate changes.
 supervisorctl reread
