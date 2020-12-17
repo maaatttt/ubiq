@@ -23,7 +23,11 @@ apt install -y build-essential
 apt install -y npm
 
 # Download and set up Caddy, edit relevent conf files.
-wget "https://caddyserver.com/api/download?os=linux&arch=arm64&idempotency=38152918486201" -O caddy
+if [ $arch = 32bit ]; then
+        wget "https://caddyserver.com/api/download?os=linux&arch=arm&arm=7&idempotency=31105726933481" -O caddy
+elif [ $arch = 64bit ]; then
+        wget "https://caddyserver.com/api/download?os=linux&arch=arm64&idempotency=38152918486201" -O caddy
+fi
 mv ./caddy /usr/bin/
 chmod +x /usr/bin/caddy
 mkdir /etc/caddy

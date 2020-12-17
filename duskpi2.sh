@@ -12,9 +12,9 @@ npm install
 export BASE_URL="https://ipaddress"
 npm run build
 
-# Create & edit the Supervisor file to manage Caddy
+# Create & edit the .dusk Supervisor dir, and related file to manage Caddy
 mkdir -p ~/.dusk/supervisor
-
+sudo touch ~/.dusk/supervisor/caddy.conf
 sudo tee ~/.dusk/supervisor/caddy.conf &>/dev/null <<"EOF"
 [program:caddy]
 command=/usr/bin/caddy run --config /etc/caddy/caddy.conf --adapter=caddyfile
@@ -26,6 +26,7 @@ stdout_logfile=/var/log/caddy.out.log
 EOF
 
 # Create & edit the Supervisor file to manage Dusk
+sudo touch ~/.dusk/supervisor/dusk.conf
 sudo tee ~/.dusk/supervisor/dusk.conf &>/dev/null <<"EOF"
 [program:dusk]
 command=/usr/bin/npm run start
