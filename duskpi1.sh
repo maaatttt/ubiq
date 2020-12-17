@@ -2,7 +2,9 @@
 
 # As "root" user.
 
-
+if [ $hardware = RaspberryPi ]; then
+sudo -i
+fi
 
 # Set variable containing the system's IP Address.
 node_ip=$(hostname -I|cut -d" " -f 1)
