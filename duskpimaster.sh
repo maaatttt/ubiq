@@ -24,7 +24,7 @@ chmod +x /root/duskpi1.sh
 cp /root/duskpi2.sh /home/dusk
 
 # Make Part 2 executable ( command is run as user "dusk" ).
-runuser -l dusk -c 'sudo -S chmod +x /root/duskpi2.sh'
+runuser -l dusk -c 'sudo -S chmod +x /home/dusk/duskpi2.sh'
 
 # Run Part 1 script.
 ./duskpi1.sh
