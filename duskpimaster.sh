@@ -97,7 +97,8 @@ wget https://raw.githubusercontent.com/maaatttt/ubiq/master/duskpi2.sh
 # Make Part 1 executable.
 chmod +x /root/duskpi1.sh
 
-# Copy Part 2 to home dir of user "dusk".
+# Insert system IP Address into file & Copy Part 2 script file to home dir of user "dusk".
+sed -i -e "s/ipaddress/$node_ip/" /root/duskpi2.sh
 cp /root/duskpi2.sh /home/dusk
 
 # Make Part 2 executable ( command is run as user "dusk" ).
