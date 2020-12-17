@@ -116,7 +116,7 @@ supervisorctl update
 
 # Format drive, create dir & mount, edit fstab, mv "dusk" home to external drive, symlink to home.
 umount /dev/sda
-mkfs.ext4 /dev/sda -L UBIQ
+mkfs.ext4 /dev/sda -L DUSK
 mkdir /mnt/ssd
 mount /dev/sda /mnt/ssd
 echo "/dev/sda /mnt/ssd ext4 defaults 0 0" | sudo tee -a /etc/fstab
