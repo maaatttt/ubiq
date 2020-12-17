@@ -5,12 +5,89 @@
 # When both parts have finished, this "master" script will handle setup for the external drive.
 # It will then reboot the system.
 
-# Update the system, add "dusk" user, give "dusk" user sudo permissions.
-sudo -i
-apt update
-apt full-upgrade -y
-adduser dusk
-usermod -G sudo dusk
+clear
+yes '' | sed 4q
+cat << "EOF"
+
+DDDDDDDDDDDDD       UUUUUUUU     UUUUUUUU   SSSSSSSSSSSSSSS KKKKKKKKK    KKKKKKK
+D::::::::::::DDD    U::::::U     U::::::U SS:::::::::::::::SK:::::::K    K:::::K
+D:::::::::::::::DD  U::::::U     U::::::US:::::SSSSSS::::::SK:::::::K    K:::::K
+DDD:::::DDDDD:::::D UU:::::U     U:::::UUS:::::S     SSSSSSSK:::::::K   K::::::K
+  D:::::D    D:::::D U:::::U     U:::::U S:::::S            KK::::::K  K:::::KKK
+  D:::::D     D:::::DU:::::D     D:::::U S:::::S              K:::::K K:::::K
+  D:::::D     D:::::DU:::::D     D:::::U  S::::SSSS           K::::::K:::::K
+  D:::::D     D:::::DU:::::D     D:::::U   SS::::::SSSSS      K:::::::::::K
+  D:::::D     D:::::DU:::::D     D:::::U     SSS::::::::SS    K:::::::::::K
+  D:::::D     D:::::DU:::::D     D:::::U        SSSSSS::::S   K::::::K:::::K
+  D:::::D     D:::::DU:::::D     D:::::U             S:::::S  K:::::K K:::::K
+  D:::::D    D:::::D U::::::U   U::::::U             S:::::SKK::::::K  K:::::KKK
+DDD:::::DDDDD:::::D  U:::::::UUU:::::::U SSSSSSS     S:::::SK:::::::K   K::::::K
+D:::::::::::::::DD    UU:::::::::::::UU  S::::::SSSSSS:::::SK:::::::K    K:::::K
+D::::::::::::DDD        UU:::::::::UU    S:::::::::::::::SS K:::::::K    K:::::K
+DDDDDDDDDDDDD             UUUUUUUUU       SSSSSSSSSSSSSSS   KKKKKKKKK    KKKKKKK
+
+
+
+
+Thank you for using Dusk to set up a node for Ubiq, Ethereum, or Ethereum Classic!
+This script will handle setup on the following systems;
+- Raspberry Pi 3B+, or 4B running Raspberry Pi OS or Raspberry Pi OS Lite
+- Asus Tinkerboard / Tinkerboard S running Armbian
+- Odroid XU4 running Armbian
+- Odroid C2 running Armbian
+- Libre LePotato running Armbian
+EOF
+read -p "Press ENTER to continue to setup."
+
+#### Setting variables naming the hardware being used, and its architecture.
+#### Any hardware variants discoverd to work with this script will be added over time.
+
+node_ip=$(hostname -I | cut -f1 -d' ')
+
+if grep -q 'Raspberry' /proc/device-tree/model; then
+	hardware=RaspberryPi
+	arch=32bit
+elif grep -q 'Tinker' /proc/device-tree/model; then
+	hardware=Tinkerboard
+	arch=32bit
+elif grep -q 'XU4' /proc/device-tree/model; then
+	hardware=OdroidXU4
+	arch=32bit
+elif grep -q 'ODROID-C2' /proc/device-tree/model; then
+	hardware=OdroidC2
+	arch=64bit
+elif grep -q 'Libre' /proc/device-tree/model; then
+	hardware=LibreLePotato
+	arch=64bit
+fi
+clear
+
+#### Raspberry Pi's will create a new user called "dusk" and assign permissions.  Armbian systems will remind about certain settings.
+
+if [ $hardware = RaspberryPi ]; then
+cat << "EOF"
+Your new user will be called 'dusk'.
+You will now be prompted to set a password for your new user...
+When prompted to fill in personal details, you may leave it blank.
+EOF
+	echo
+  	read -p "Press ENTER to continue..."
+	  clear
+	  sudo adduser dusk
+  	sudo usermod -G sudo dusk
+  	sudo sed -i -e "s/CONF_SWAPSIZE=100/CONF_SWAPSIZE=2048/" /etc/dphys-swapfile
+  	sudo /etc/init.d/dphys-swapfile restart
+
+elif [ $hardware != RaspberryPi ]; then
+cat << "EOF"
+If you are running Armbian, you created the user called 'dusk' and set it's password on first boot.
+You should have also set up the network connection & adjusted the timezone settings.
+When the setup process is complete, your system will restart.
+Welcome to Dusk!
+EOF
+echo
+	read -p "Press ENTER to continue..."
+fi
 
 # Download Part 1 and Part 2 of the Dusk setup.
 # Part 1 script is run as "root" and Part 2 script is run as "dusk".
