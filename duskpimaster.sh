@@ -31,7 +31,7 @@ DDDDDDDDDDDDD             UUUUUUUUU       SSSSSSSSSSSSSSS   KKKKKKKKK    KKKKKKK
 
 Thank you for using Dusk to set up a node for Ubiq, Ethereum, or Ethereum Classic!
 This script will handle setup on the following systems;
-- Raspberry Pi 3B+, or 4B running Raspberry Pi OS or Raspberry Pi OS Lite
+- Raspberry Pi 3B+ or 4B running Raspberry Pi OS or Raspberry Pi OS Lite
 - Asus Tinkerboard / Tinkerboard S running Armbian
 - Odroid XU4 running Armbian
 - Odroid C2 running Armbian
