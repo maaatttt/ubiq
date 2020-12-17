@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# As "dusk" user 
+# As "dusk" user
 
 # Set variable containing the system's IP Address.
 node_ip=$(hostname -I|cut -d" " -f 1)
@@ -9,7 +9,7 @@ node_ip=$(hostname -I|cut -d" " -f 1)
 git clone https://github.com/octanolabs/dusk.git
 cd dusk
 npm install
-#export BASE_URL="https://ipaddress"
+export BASE_URL="https://ipaddress"
 npm run build
 
 # Create & edit the Supervisor file to manage Caddy
@@ -40,5 +40,3 @@ EOF
 
 # Exit Part 2 script back to Master script to complete setup.
 exit
-
-
