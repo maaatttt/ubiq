@@ -115,6 +115,7 @@ supervisorctl reread
 supervisorctl update
 
 # Format drive, create dir & mount, edit fstab, mv "dusk" home to external drive, symlink to home.
+umount /dev/sda
 mkfs.ext4 /dev/sda -L UBIQ
 mkdir /mnt/ssd
 mount /dev/sda /mnt/ssd
