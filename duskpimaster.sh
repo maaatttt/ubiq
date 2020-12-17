@@ -7,8 +7,8 @@
 
 # Update the system, add "dusk" user, give "dusk" user sudo permissions.
 sudo -i
-apt get update
-apt get full-upgrade
+apt update
+apt full-upgrade -y
 adduser dusk
 usermod -G sudo dusk
 
