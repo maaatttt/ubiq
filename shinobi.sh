@@ -23,9 +23,17 @@ fi
 # Updates
 sudo apt update && sudo apt upgrade -y
 
+# Install git
+sudo apt install git
+
 # Install NodeJS
 curl -sL https://deb.nodesource.com/setup_15.x | bash -
 sudo apt install -y nodejs
+
+# Install npm on Raspberry Pi, is preinstalled on Armbian
+if [ $hardware = RaspberryPi ]; then
+sudo apt install npm -y
+fi
 
 # Install yarn
 curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add -
@@ -51,6 +59,7 @@ fi
 npm run build
 sleep 10
 yarn global add serve
+sudo npm install -g serve
 
 # Create & populate script of startup commands
 if [ $hardware = RaspberryPi ]; then
@@ -72,7 +81,7 @@ fi
 
 # Insert script info to rc.local to run at system start
 if [ $hardware = RaspberryPi ]; then
-sed -i "13i sh /home/pi/startup.sh" /etc/rc.local
+sudo sed -i "19i sh /home/pi/startup.sh" /etc/rc.local
 elif [ $hardware != RaspberryPi ]; then
 sed -i "13i sh /root/startup.sh" /etc/rc.local
 fi
@@ -90,4 +99,4 @@ echo
 read -p "Press ENTER to reboot."
 sleep 2
 
-reboot
+sudo reboot
