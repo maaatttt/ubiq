@@ -33,6 +33,7 @@ sudo apt install -y nodejs
 # Install npm on Raspberry Pi, is preinstalled on Armbian
 if [ $hardware = RaspberryPi ]; then
 sudo apt install npm -y
+sudo apt install screen -y
 fi
 
 # Install yarn
