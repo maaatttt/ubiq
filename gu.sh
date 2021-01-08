@@ -21,13 +21,13 @@ if [ $hardware = RaspberryPi ] || [ $hardware = Tinkerboard ] || [ $hardware = O
 	sudo rm gubiq-linux-arm-7
 	sudo rm /usr/bin/gubiq
 	wget https://github.com/ubiq/go-ubiq/releases/download/v3.2.0/gubiq-linux-arm-7
-  echo "f733349c34e466e30abf340e4ee677dd7c462df0b7c0bf0c75c9cd0dbb15faf1  gubiq-linux-arm-7" | sha256sum -c -
+  echo "832edbae741eb06ab6e6f02fe6b4e3234524d58ec11e2dcf67876667a8676c57  gubiq-linux-arm-7" | sha256sum -c - || exit 1
 
 elif [ $hardware = OdroidC2 ] || [ $hardware = LibreLePotato ]; then
 	sudo rm gubiq-linux-arm64
 	sudo rm /usr/bin/gubiq
 	wget https://github.com/ubiq/go-ubiq/releases/download/v3.2.0/gubiq-linux-arm64
-  echo "5978700da6087fd78ffe913d90c48530e3d5f7f7927653020263b12649308194 gubiq-linux-arm64" | sha256sum -c -
+  echo "50718368e382009dae2d0c2e1a786f56cfc2fd3b79c66502a80826ff67c63169 gubiq-linux-arm64" | sha256sum -c - || exit 1
 fi
 
 if [ $hardware = RaspberryPi ] || [ $hardware = Tinkerboard ] || [ $hardware = OdroidXU4 ]; then
