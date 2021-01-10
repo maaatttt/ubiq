@@ -30,10 +30,11 @@ sudo apt install git
 curl -sL https://deb.nodesource.com/setup_15.x | bash -
 sudo apt install -y nodejs
 
-# Install npm on Raspberry Pi, is preinstalled on Armbian
+# Install npm & screen on Raspberry Pi, is preinstalled on Armbian
 if [ $hardware = RaspberryPi ]; then
 sudo apt install npm -y
 sudo apt install screen -y
+else echo "npm is installed, screen is installed"
 fi
 
 # Install yarn
