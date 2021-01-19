@@ -68,7 +68,7 @@ if [ $hardware = RaspberryPi ]; then
 sudo touch /home/pi/startup.sh
 sudo chmod +x /home/pi/startup.sh
 sudo tee /home/pi/startup.sh &>/dev/null <<"EOF"
-screen -dmS shinobi serve -s /home/pi/shinobi-interface/build
+screen -dmS shinobi serve -s -p 8888 /home/pi/shinobi-interface/build
 
 EOF
 
