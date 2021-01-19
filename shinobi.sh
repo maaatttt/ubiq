@@ -93,7 +93,7 @@ clear
 echo
 echo
 echo
-echo "You can access Shinobi from your node by visiting "$node_ip":5000 in your web browser of choice!"
+echo "You can access Shinobi from your node by visiting "$node_ip":8888 in your web browser of choice!"
 echo
 echo
 echo
