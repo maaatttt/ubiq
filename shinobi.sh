@@ -1,4 +1,26 @@
 #!/bin/bash
+clear
+yes '' | sed 4q
+cat << "EOF"
+   ▄████████    ▄█    █▄     ▄█  ███▄▄▄▄    ▄██████▄  ▀█████████▄   ▄█
+  ███    ███   ███    ███   ███  ███▀▀▀██▄ ███    ███   ███    ███ ███
+  ███    █▀    ███    ███   ███▌ ███   ███ ███    ███   ███    ███ ███▌
+  ███         ▄███▄▄▄▄███▄▄ ███▌ ███   ███ ███    ███  ▄███▄▄▄██▀  ███▌
+▀███████████ ▀▀███▀▀▀▀███▀  ███▌ ███   ███ ███    ███ ▀▀███▀▀▀██▄  ███▌
+         ███   ███    ███   ███  ███   ███ ███    ███   ███    ██▄ ███
+   ▄█    ███   ███    ███   ███  ███   ███ ███    ███   ███    ███ ███
+ ▄████████▀    ███    █▀    █▀    ▀█   █▀   ▀██████▀  ▄█████████▀  █▀
+
+
+Thank you for supporting the Ubiq network!
+
+This script will install the Shinobi interface locally on this system.
+
+You will then be able to access the page from anywhere on your local network.
+
+EOF
+
+read -p "Press ENTER to continue to setup."
 
 # Set ip, hardware type, and architecture variables
 node_ip=$(hostname -I|cut -d" " -f 1)
