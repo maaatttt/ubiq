@@ -80,9 +80,9 @@ sed -i -e 's|"homepage": "."|"homepage": "https://'$node_ip'"|' /root/shinobi-in
 fi
 
 # Rebuild with changes and serve
-npm run build
+sudo npm run build
 sleep 10
-yarn global add serve
+sudo yarn global add serve
 sudo npm install -g serve
 
 # Create & populate script of startup commands
