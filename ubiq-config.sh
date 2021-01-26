@@ -117,7 +117,7 @@ function advancedMenu() {
                         if [ -f "/root/shinobi.sh" ]; then
                         whiptail --title "Shinobi Interface Installation" --msgbox "Shinobi Interface is already installed on your system.  Use Shinobi by visiting "$node_ip":8888 in a browser" 9 60
                         fi
-            elif(whiptail --title "Shinobi Interface Installation" --yesno "Would you like to install Shinobi Interface now?" 8 52); then
+            elif (whiptail --title "Shinobi Interface Installation" --yesno "Would you like to install Shinobi Interface now?" 8 52); then
                 clear
                 wget https://raw.githubusercontent.com/maaatttt/ubiq/master/shinobi.sh
                 sudo chmod +x shinobi.sh
