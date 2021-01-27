@@ -109,22 +109,18 @@ function advancedMenu() {
             if [ "$(whoami)" != $rootuser ]; then
             whiptail --title "Shinobi Interface Installation" --msgbox "Please log in as "$rootuser" and run 'ubiq-config' again to perform this action." 8 47
             elif [ "$(whoami)" = $rootuser ]; then
-                if [ $hardware = "RaspberryPi" ]; then
-                        if [ -f "/home/pi/shinobi.sh" ]; then
-                        whiptail --title "Shinobi Interface Installation" --msgbox "Shinobi Interface is already installed on your system.  Use Shinobi by visiting "$node_ip":8888 in a browser." 9 60
-                        fi
-                elif [ $hardware != "RaspberryPi" ]; then
-                        if [ -f "/root/shinobi.sh" ]; then
-                        whiptail --title "Shinobi Interface Installation" --msgbox "Shinobi Interface is already installed on your system.  Use Shinobi by visiting "$node_ip":8888 in a browser" 9 60
-                        fi
-            elif (whiptail --title "Shinobi Interface Installation" --yesno "Would you like to install Shinobi Interface now?" 8 52); then
+                if [ $hardware = "RaspberryPi" ] && [ -d "/home/pi/shinobi-interface" ]; then
+                whiptail --title "Shinobi Interface Installation" --msgbox "Shinobi Interface is already installed on your system.  Use Shinobi by visiting "$node_ip":8888 in a browser" 9 60
+                elif [ $hardware != "RaspberryPi" ] && [ -d "/root/shinobi-interface" ]; then
+                whiptail --title "Shinobi Interface Installation" --msgbox "Shinobi Interface is already installed on your system.  Use Shinobi by visiting "$node_ip":8888 in a browser" 9 60
+                elif (whiptail --title "Shinobi Interface Installation" --yesno "Would you like to install Shinobi Interface now?" 8 52); then
                 clear
                 wget https://raw.githubusercontent.com/maaatttt/ubiq/master/shinobi.sh
                 sudo chmod +x shinobi.sh
                 ./shinobi.sh
+                else
+                whiptail --title "Shinobi Interface Installation" --msgbox "Shinobi Interface installation canceled" 8 44
                 fi
-            else
-            whiptail --title "Shinobi Interface Installation" --msgbox "Shinobi Interface installation canceled" 8 44
             fi
         ;;
         6)
