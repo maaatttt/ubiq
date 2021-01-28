@@ -60,7 +60,7 @@ function advancedMenu() {
         2)
             if [ -f "/usr/bin/gubiq" ]; then
                 if [ "$(whoami)" = $rootuser ]; then
-                whiptail --title "Block Info" --msgbox "Please log in as 'node' and run 'ubiq-config' again in order to perform this action." 8 50
+                whiptail --title "Block Info" --msgbox "Please log in as 'node' and run 'ubiq-config' again in order to perform this action." 8 49
                 elif ( whiptail --title "Block Info" --yesno "Would you like to display a live view of block information?" 8 64); then
                 whiptail --title "Block Info" --msgbox "When you are finished, pressing 'Ctrl C' then 'q' will escape back to 'ubiq-config'" 8 46
                 less +F /var/log/gubiq.err.log
@@ -93,7 +93,7 @@ function advancedMenu() {
         4)
             if [ -f "/usr/bin/gubiq" ]; then
                 if [ "$(whoami)" = $rootuser ] ; then
-                whiptail --title "Resync" --msgbox "Please log in as 'node' and run 'ubiq-config' again in order to perform this action." 8 50
+                whiptail --title "Resync" --msgbox "Please log in as 'node' and run 'ubiq-config' again in order to perform this action." 8 49
                 elif ( whiptail --title "Resync" --yesno "Would you like to delete all gubiq data and sync the blockchain from scratch?" 8 43); then
                 sudo apt update
                 sudo supervisorctl stop gubiq
@@ -111,9 +111,9 @@ function advancedMenu() {
             whiptail --title "Shinobi Interface Installation" --msgbox "Please log in as "$rootuser" and run 'ubiq-config' again to perform this action." 8 47
             elif [ "$(whoami)" = $rootuser ]; then
                 if [ $hardware = "RaspberryPi" ] && [ -d "/home/pi/shinobi-interface" ]; then
-                whiptail --title "Shinobi Interface Installation" --msgbox "Shinobi Interface is already installed on your system.  Use Shinobi by visiting "$node_ip":8888 in a browser" 9 60
+                whiptail --title "Shinobi Interface Installation" --msgbox "Shinobi Interface is already installed on your system.  Use Shinobi by visiting "$node_ip":8888 in a browser" 9 58
                 elif [ $hardware != "RaspberryPi" ] && [ -d "/root/shinobi-interface" ]; then
-                whiptail --title "Shinobi Interface Installation" --msgbox "Shinobi Interface is already installed on your system.  Use Shinobi by visiting "$node_ip":8888 in a browser" 9 60
+                whiptail --title "Shinobi Interface Installation" --msgbox "Shinobi Interface is already installed on your system.  Use Shinobi by visiting "$node_ip":8888 in a browser" 9 58
                 elif (whiptail --title "Shinobi Interface Installation" --yesno "Would you like to install Shinobi Interface now?" 8 52); then
                 clear
                 wget https://raw.githubusercontent.com/maaatttt/ubiq/master/shinobi.sh
@@ -139,14 +139,14 @@ function advancedMenu() {
             if (whiptail --title "System Reboot" --yesno "Would you like to reboot immediately?" 8 41); then
             sudo reboot
             else
-            whiptail --title "System Reboot" --msgbox "Reboot Aborted" 8 18
+            whiptail --title "System Reboot" --msgbox "Reboot Canceled" 8 19
             fi
         ;;
         8)
             if (whiptail --title "System Shutdown" --yesno "Would you like to shut down immediately?" 8 44); then
             sudo shutdown -h now
             else
-            whiptail --title "System Shutdown" --msgbox "Shutdown Canceled" 8 22
+            whiptail --title "System Shutdown" --msgbox "Shutdown Canceled" 8 21
             fi
         ;;
         9)
