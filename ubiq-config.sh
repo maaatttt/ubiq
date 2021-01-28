@@ -37,7 +37,8 @@ function advancedMenu() {
         "5" "Install Shinobi Interface" \
         "6" "Install updates to the OS" \
         "7" "Reboot the system" \
-        "8" "Exit to Terminal" 3>&1 1>&2 2>&3)
+        "8" "Shutdown the system" \
+        "9" "Exit to Terminal" 3>&1 1>&2 2>&3)
     case $ADVSEL in
         1)
             if [ -f "/usr/bin/gubiq" ]; then
@@ -142,6 +143,13 @@ function advancedMenu() {
             fi
         ;;
         8)
+            if (whiptail --title "System Shutdown" --yesno "Would you like to shut down immediately?" 8 44); then
+            sudo shutdown -h now
+            else
+            whiptail --title "System Shutdown" --msgbox "Shutdown Canceled" 8 22
+            fi
+        ;;
+        9)
             break
         ;;
     esac
