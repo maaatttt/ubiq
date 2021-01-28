@@ -2,7 +2,7 @@
 ## ARM-based single-board computers as nodes for the Ubiq blockchain.
 ------------------------------------------------------------------------------------------------------------------------------
 
-This README provides some general instructions for the initial setup of the system, and some detail about the various bash scripts used in [guides](https://blog.ubiqsmart.com/tagged/tutorial) produced for the _[Ubiq Community](https://www.ubiqescher.com/)_ to encourage anyone who is interested to set up their own node. 
+This README provides some general instructions for the initial setup of the system, and some detail about the various bash scripts used in [guides](https://blog.ubiqsmart.com/tagged/tutorial) produced for the Ubiq community to encourage anyone who is interested to set up their own node. 
 
 -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
@@ -12,7 +12,7 @@ This README provides some general instructions for the initial setup of the syst
 
 - Raspberry Pi uses [Raspberry Pi OS](https://www.raspberrypi.org/downloads/raspberry-pi-os/), the other boards use [Armbian](
 https://www.armbian.com/).
-  - [Raspberry Pi](https://downloads.raspberrypi.org/raspios_lite_armhf_latest)
+  - [Raspberry Pi ](https://downloads.raspberrypi.org/raspios_lite_armhf_latest)  (3B+ and newer prefered) 
   - [Asus Tinkerboard](https://redirect.armbian.com/tinkerboard/Focal_current)
   - [OdroidXU4](https://redirect.armbian.com/odroidxu4/Buster_legacy)
   - [OdroidC2](https://redirect.armbian.com/odroidc2/Buster_current)
@@ -22,38 +22,27 @@ https://www.armbian.com/).
 
   - Use [Etcher](https://www.balena.io/etcher/) to flash the OS to your microSD card.
   - For Raspberry Pi, SSH is disabled by default.  [Enabled by placing file named **`ssh`** in boot partition of the SD card. ](https://www.raspberrypi.org/documentation/remote-access/ssh/)
-  
+
+- [ ] If you _must_ use WiFi instead of a wired ethernet connection you can set up the connection inside your OS config utility.
+  - Raspberry Pi - `sudo raspi-config`
+  - Armbian - `armbian-config`
 - [ ] First boot / Log In
-  - Connect an new or formatted (ext4) SSD drive to the system after starting up. 
+  - Connect an new or formatted (ext4) SSD drive to the system before starting up. 
   
   - Logging in via SSH -
-    - **`Raspberry Pi`;** -  log in with **`ssh user@youripaddress`**
+    - **Raspberry Pi** -  log in with **`ssh user@youripaddress`**  ( Defaults - `user` : **`pi`** / `passwd` : **`raspberry`** )
     
-    - **`Armbian`;** -     log in with **`ssh user@youripaddress`**
+    - **Armbian** -     log in with **`ssh user@youripaddress`**  ( Defaults - `user` : **`root`** / `passwd` : **`1234`**
   
-  - Raspberry Pi;  `user` : **`pi`** / `passwd` : **`raspberry`**
-  - Armbian;  `user` : **`root`** / `passwd` : **`1234`**
-  
-- [ ] Set your timezone
-    - Raspberry Pi - **`raspi-config`**
-    - Armbian - **`armbian-config`**
+    - Note! Raspberry Pi users should use their OS config utility ( `raspi-config` )to change the `pi` user default password 
+    - Note! Armbian users will be prompted to create a non-root user when booting a new system.  Name that new user **`node`**.
+ 
+- [ ] Download and install the **`ubiq-config.sh`** utility.
+    - `wget https://raw.githubusercontent.com/maaatttt/ubiq/master/ubiq-config.sh`
+    - `sudo chmod +x ubiq-config.sh`
+    - `sudo mv ubiq-config.sh /usr/bin/ubiq-config`
 
-- [ ] Download and run the **`node.sh`** setup script. Follow the prompts. After the system reboots, your node will sync the blockchain.
-    - **`wget https://raw.githubusercontent.com/maaatttt/ubiq/master/node.sh`**
-    - **`sudo chmod +x node.sh`**
-    - **`./node.sh`**
-
-- [ ] Watching the progess
-    - Log in as *node* with whatever password you gave it.
-    - **`cd /var/log`**
-    - **`tail -f gubiq.err.log`**
-    - **`Ctrl + C`** to exit to shell
-
-- [ ] When there is a new gubiq release available for your system, you can update using the following commands:
-    - Log in as *pi* or *root* depending on your system.
-    - **`wget https://raw.githubusercontent.com/maaatttt/ubiq/master/gu.sh`**
-    - **`chmod +x gu.sh`**
-    - **`./gu.sh`**
+- [ ] Use **ubiq-config** by simply typing `ubiq-config` into the terminal at any time.
 
 Enjoy!
 
