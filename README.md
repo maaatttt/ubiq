@@ -6,9 +6,9 @@ This README provides some general instructions for the initial setup of the syst
 
 -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-## These steps assume a wired, headless setup, accessed via SSH.
+## These steps assume an ethernet connection / headless setup / accessed via SSH / an SSD drive for storage.
 
-- [ ] Download the OS for your hardware -
+- [ ] Download the OS for your hardware - 
 
 - Raspberry Pi uses [Raspberry Pi OS](https://www.raspberrypi.org/downloads/raspberry-pi-os/), the other boards use [Armbian](
 https://www.armbian.com/).
@@ -28,7 +28,7 @@ https://www.armbian.com/).
   - Raspberry Pi - `sudo raspi-config`
   - Armbian - `armbian-config`
 - [ ] First boot / Log In
-  - Connect an new or formatted (ext4) SSD drive to the system before starting up. 
+  - Connect the SSD drive to the system before starting up. 
   
   - Logging in via SSH -
     - **Raspberry Pi** -  log in with **`ssh user@youripaddress`**  ( Defaults - `user` : **`pi`** / `passwd` : **`raspberry`** )
@@ -37,7 +37,8 @@ https://www.armbian.com/).
   
     - Note! Raspberry Pi users should use their OS config utility ( `raspi-config` )to change the `pi` user default password 
     - Note! Armbian users will be prompted to create a non-root user when booting a new system.  Name that new user **`node`**.
- 
+    - Note! The `ubiq-config` tool will prompt you to set your timezone, you do not need to do it beforehand.
+    
 - [ ] Download and install the **`ubiq-config.sh`** utility.
     - `wget https://raw.githubusercontent.com/maaatttt/ubiq/master/ubiq-config.sh`
     - `sudo chmod 755 ubiq-config.sh`
@@ -50,6 +51,11 @@ https://www.armbian.com/).
 ## Scripts enabling the functionality for `ubiq-config` listed below.  
 ## Any older unused scripts are labeled as **_DEPRICATED_**.
 
+## **[ubiq-config.sh](https://raw.githubusercontent.com/maaatttt/ubiq/master/ubiq-config.sh)** 
+
+This is the bash script that comprises the `ubiq-config` utility.  A text-based user interface that allows users to manage the functionality of their Ubiq node through an easy-to-use graphical implementation for the command-line.  It makes possible the installation of the **[node.sh](https://raw.githubusercontent.com/maaatttt/ubiq/master/node.sh)** script.  , [gu.sh](https://raw.githubusercontent.com/maaatttt/ubiq/master/gu.sh) script, and the **[auto.sh](https://raw.githubusercontent.com/maaatttt/ubiq/master/auto.sh)** script, as well as various update commands and shutdown procedures.
+
+------------------------------------------------------------------------------------------------------------------------------
 
 ## **[node.sh](https://raw.githubusercontent.com/maaatttt/ubiq/master/node.sh)** 
 
