@@ -21,7 +21,8 @@ https://www.armbian.com/).
 - [ ]  Flash OS to microSD card.
 
   - Use [Etcher](https://www.balena.io/etcher/) to flash the OS to your microSD card.
-  - For Raspberry Pi, SSH is disabled by default.  [Enabled by placing file named **`ssh`** in boot partition of the SD card. ](https://www.raspberrypi.org/documentation/remote-access/ssh/)
+  - For Raspberry Pi, SSH is disabled by default.  [Enabled by placing an empty file named **`ssh`** in boot partition of the SD card. ](https://www.raspberrypi.org/documentation/remote-access/ssh/)
+  - For Armbian boards, SSH is enabled by default.
 
 - [ ] If you _must_ use WiFi instead of a wired ethernet connection you can set up the connection inside your OS config utility.
   - Raspberry Pi - `sudo raspi-config`
@@ -39,17 +40,15 @@ https://www.armbian.com/).
  
 - [ ] Download and install the **`ubiq-config.sh`** utility.
     - `wget https://raw.githubusercontent.com/maaatttt/ubiq/master/ubiq-config.sh`
-    - `sudo chmod +x ubiq-config.sh`
+    - `sudo chmod 755 ubiq-config.sh`
     - `sudo mv ubiq-config.sh /usr/bin/ubiq-config`
 
 - [ ] Use **ubiq-config** by simply typing `ubiq-config` into the terminal at any time.
 
-Enjoy!
-
 -------------------------------------------------------------------------------------------------------------------------------
 
-## The various current and depricated scripts used here - 
-
+## Scripts enabling the functionality for `ubiq-config` listed below.  
+## Any older unused scripts are labeled as **_DEPRICATED_**.
 
 
 ## **[node.sh](https://raw.githubusercontent.com/maaatttt/ubiq/master/node.sh)** 
@@ -83,7 +82,9 @@ This script is run as part of an optional cron job that re-fetches an update scr
 **Automatic updates to gubiq resulting from the [gu.sh](https://raw.githubusercontent.com/maaatttt/ubiq/master/gu.sh) script will _only_ be release versions, and _never_ pre-release beta versions.**
 
 ------------------------------------------------------------------------------------------------------------------------------
-
+------------------------------------------------------------------------------------------------------------------------------
+## **_The scripts below are no longer used in these processes_** 
+**_DEPRICATED_**
 ## **[old-node.sh](https://raw.githubusercontent.com/maaatttt/ubiq/master/old-node.sh)** 
 
 **_DEPRICATED_**
