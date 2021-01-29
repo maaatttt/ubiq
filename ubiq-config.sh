@@ -26,7 +26,7 @@ fi
 
 whiptail \
     --title "Welcome to Ubiq-Config" \
-    --msgbox "This tool provides options for creating and managing a node for the Ubiq network, as well as helpful tools such as system updates and installing the Shinobi interface." --ok-button Continue 10 49
+    --msgbox "This utility provides options for creating and managing a node for the Ubiq network, as well as helpful tools such as system updates and installing the Shinobi interface." --ok-button Continue 10 49
 function advancedMenu() {
     while :; do
     ADVSEL=$(whiptail --title "ubiq-config" --fb --menu --nocancel "   Choose an option from the menu" 18 40 9 \
