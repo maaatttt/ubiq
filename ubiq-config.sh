@@ -73,7 +73,7 @@ function advancedMenu() {
         3)
             if [ -f "/home/pi/auto.sh" ]; then
                 if [ "$(whoami)" != $rootuser ] ; then
-                whiptail --title "gubiq Update" --fb --msgbox "Please log in as "$rootuser" and run 'ubiq-config' again in order to perform this action." 10 47
+                whiptail --title "gubiq Update" --fb --msgbox "Please log in as "$rootuser" and run 'ubiq-config' again in order to perform this action." 10 45
                 elif ( whiptail --title "gubiq Update" --fb --yesno "Your system is already configured for monthly automatic updates.  Would you like to update now anyway?" 10 60); then
                 wget https://raw.githubusercontent.com/maaatttt/ubiq/master/gu.sh
                 #chmod +x gu.sh
@@ -109,7 +109,7 @@ function advancedMenu() {
         ;;
         5)
             if [ "$(whoami)" != $rootuser ]; then
-            whiptail --title "Shinobi Interface Installation" --fb --msgbox "Please log in as "$rootuser" and run 'ubiq-config' again to perform this action." 10 47
+            whiptail --title "Shinobi Interface Installation" --fb --msgbox "Please log in as "$rootuser" and run 'ubiq-config' again to perform this action." 10 45
             elif [ "$(whoami)" = $rootuser ]; then
                 if [ $hardware = "RaspberryPi" ] && [ -d "/home/pi/shinobi-interface" ]; then
                 whiptail --title "Shinobi Interface Installation" --fb --msgbox "Shinobi Interface is already installed on your system.  Use Shinobi by visiting "$node_ip":8888 in a browser" 11 58
