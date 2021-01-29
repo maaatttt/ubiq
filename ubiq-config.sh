@@ -38,7 +38,7 @@ function advancedMenu() {
         "6" "Install updates to the OS" \
         "7" "System information" \
         "8" "Reboot the system" \
-        "9" "Shutdown the system"
+        "9" "Shutdown the system" \
         "10" "Exit to Terminal" 3>&1 1>&2 2>&3)
     case $ADVSEL in
         1)
