@@ -36,8 +36,9 @@ function advancedMenu() {
         "4" "Delete chaindata & re-sync gubiq" \
         "5" "Install Shinobi Interface" \
         "6" "Install updates to the OS" \
-        "7" "Reboot the system" \
-        "8" "Shutdown the system" \
+        "7" "System information" \
+        "8" "Reboot the system" \
+        "9" "Shutdown the system"
         "10" "Exit to Terminal" 3>&1 1>&2 2>&3)
     case $ADVSEL in
         1)
@@ -136,38 +137,38 @@ function advancedMenu() {
             fi
         ;;
         7)
+            if [ -f "/usr/bin/gubiq" ]; then
+              touch info.txt
+              echo "Your IP Address is -" | tee -a info.txt 1>/dev/null
+              echo $node_ip | tee -a info.txt 1>/dev/null
+              echo "       "| tee -a info.txt 1>/dev/null
+              echo "       "| tee -a info.txt 1>/dev/null
+              echo "Your gubiq version information is -" | tee -a info.txt 1>/dev/null
+              gubiq version | tee -a info.txt 1>/dev/null
+              echo "       "| tee -a info.txt 1>/dev/null
+              echo "       "| tee -a info.txt 1>/dev/null
+              echo "Your SSD storage is -"| tee -a info.txt 1>/dev/null
+              df /dev/sda -h | tee -a info.txt 1>/dev/null
+              echo "       "| tee -a info.txt 1>/dev/null
+              echo "       "| tee -a info.txt 1>/dev/null
+              whiptail --textbox --fb info.txt 30 60
+              sudo rm info.txt
+              clear
+              else whiptail --title "Block Info" --fb --msgbox "There is no Ubiq node configured on this system." 10 52
+            fi
+        ;;
+        8)
             if (whiptail --title "System Reboot" --fb --yesno "Would you like to reboot immediately?" 10 41); then
             sudo reboot
             else
             whiptail --title "System Reboot" --fb --msgbox "Reboot Canceled" 10 19
             fi
         ;;
-        8)
+        9)
             if (whiptail --title "System Shutdown" --fb --yesno "Would you like to shut down immediately?" 10 44); then
             sudo shutdown -h now
             else
             whiptail --title "System Shutdown" --fb --msgbox "Shutdown Canceled" 10 21
-            fi
-        ;;
-        9)
-            if [ -f "/usr/bin/gubiq" ]; then
-                touch info.txt
-                echo "Your IP Address is -" | tee -a info.txt 1>/dev/null
-                echo $node_ip | tee -a info.txt 1>/dev/null
-                echo "       "| tee -a info.txt 1>/dev/null
-                echo "       "| tee -a info.txt 1>/dev/null
-                echo "Your gubiq version information is -" | tee -a info.txt 1>/dev/null
-                gubiq version | tee -a info.txt 1>/dev/null
-                echo "       "| tee -a info.txt 1>/dev/null
-                echo "       "| tee -a info.txt 1>/dev/null
-                echo "Your SSD storage is -"| tee -a info.txt 1>/dev/null
-                df /dev/sda -h | tee -a info.txt 1>/dev/null
-                echo "       "| tee -a info.txt 1>/dev/null
-                echo "       "| tee -a info.txt 1>/dev/null
-                whiptail --textbox --fb info.txt 30 60
-                sudo rm info.txt
-                clear
-                else whiptail --title "Block Info" --fb --msgbox "There is no Ubiq node configured on this system." 10 52
             fi
         ;;
         10)
