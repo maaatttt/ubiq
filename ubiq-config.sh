@@ -46,7 +46,7 @@ function advancedMenu() {
             whiptail --title "Ubiq Node Install" --fb --msgbox "gubiq is already installed on your system" 10 45
             elif [ "$(whoami)" != $rootuser ]; then
             whiptail --title "Block Info" --fb --msgbox "Please log in as "$rootuser" and run 'ubiq-config' again in order to perform this action." 10 47
-          elif (whiptail --title "Ubiq Node Install" --fb --yesno "Would you like to begin installation of your Ubiq node now?" 10 64); then
+            elif (whiptail --title "Ubiq Node Install" --fb --yesno "Would you like to begin installation of your Ubiq node now?" 10 64); then
                         if( whiptail --title "Timezone" --fb --msgbox "Please set the correct timezone for your location." 10 54); then
                         sudo dpkg-reconfigure tzdata
                         whiptail --title "Timezone" --fb --msgbox "Timezone has been set" 10 25
@@ -55,15 +55,15 @@ function advancedMenu() {
             sudo chmod +x node.sh
             ./node.sh
             whiptail --title "Ubiq Node Install" --fb --msgbox " You have created a Ubiq node." 10 35
-          else whiptail --title "Ubiq Node Install" --fb --msgbox "Installation has been canceled." 10 35
+            else whiptail --title "Ubiq Node Install" --fb --msgbox "Installation has been canceled." 10 35
             fi
         ;;
         2)
             if [ -f "/usr/bin/gubiq" ]; then
                 if [ "$(whoami)" = $rootuser ]; then
                 whiptail --title "Block Info" --fb --msgbox "Please log in as 'node' and run 'ubiq-config' again in order to perform this action." 10 49
-              elif ( whiptail --title "Block Info" --fb --yesno "Would you like to display a live view of block information?" 10 64); then
-                whiptail --title "Block Info" --fb --msgbox "When you are finished, pressing 'Ctrl C' then 'q' will escape back to 'ubiq-config'" 10 46
+                elif ( whiptail --title "Block Info" --fb --yesno "Would you like to display a live view of block information?" 10 64); then
+                whiptail --title "Block Info" --fb --msgbox "When you are finished, pressing 'Ctrl C' then 'Q' will escape back to 'ubiq-config'" 10 46
                 less +F /var/log/gubiq.err.log
                 fi
             else
@@ -74,11 +74,11 @@ function advancedMenu() {
             if [ -f "/home/pi/auto.sh" ]; then
                 if [ "$(whoami)" != $rootuser ] ; then
                 whiptail --title "gubiq Update" --fb --msgbox "Please log in as "$rootuser" and run 'ubiq-config' again in order to perform this action." 10 47
-              elif ( whiptail --title "gubiq Update" --fb --yesno "Your system is already configured for monthly automatic updates.  Would you like to update now anyway?" 10 60); then
+                elif ( whiptail --title "gubiq Update" --fb --yesno "Your system is already configured for monthly automatic updates.  Would you like to update now anyway?" 10 60); then
                 wget https://raw.githubusercontent.com/maaatttt/ubiq/master/gu.sh
                 #chmod +x gu.sh
                 #./gu.sh
-              else whiptail --title "gubiq Update" --fb --msgbox "Update has been canceled." 10 29
+                else whiptail --title "gubiq Update" --fb --msgbox "Update has been canceled." 10 29
                 fi
             elif [ -f "/usr/bin/gubiq" ]; then
                 if ( whiptail --title "gubiq Update" --fb --yesno "Would you like to update gubiq now?" 10 39); then
@@ -86,7 +86,7 @@ function advancedMenu() {
                 chmod +x gu.sh
                 ./gu.sh
                 whiptail --title "gubiq Update" --fb --msgbox "Please reboot your system from the main menu" 10 48
-              else whiptail --title "gubiq Update" --fb --msgbox "Update has been canceled." 10 29
+                else whiptail --title "gubiq Update" --fb --msgbox "Update has been canceled." 10 29
                 fi
             else whiptail --title "gubiq Update" --fb --msgbox "There is no Ubiq node configured on this system." 10 52
             fi
@@ -95,7 +95,7 @@ function advancedMenu() {
             if [ -f "/usr/bin/gubiq" ]; then
                 if [ "$(whoami)" = $rootuser ] ; then
                 whiptail --title "Resync" --fb --msgbox "Please log in as 'node' and run 'ubiq-config' again in order to perform this action." 10 49
-              elif ( whiptail --title "Resync" --fb --yesno "Would you like to delete all gubiq data and sync the blockchain from scratch?" 10 43); then
+                elif ( whiptail --title "Resync" --fb --yesno "Would you like to delete all gubiq data and sync the blockchain from scratch?" 10 43); then
                 sudo apt update
                 sudo supervisorctl stop gubiq
                 gubiq removedb
@@ -115,7 +115,7 @@ function advancedMenu() {
                 whiptail --title "Shinobi Interface Installation" --fb --msgbox "Shinobi Interface is already installed on your system.  Use Shinobi by visiting "$node_ip":8888 in a browser" 11 58
                 elif [ $hardware != "RaspberryPi" ] && [ -d "/root/shinobi-interface" ]; then
                 whiptail --title "Shinobi Interface Installation" --fb --msgbox "Shinobi Interface is already installed on your system.  Use Shinobi by visiting "$node_ip":8888 in a browser" 11 58
-              elif (whiptail --title "Shinobi Interface Installation" --fb --yesno "Would you like to install Shinobi Interface now?" 10 52); then
+                elif (whiptail --title "Shinobi Interface Installation" --fb --yesno "Would you like to install Shinobi Interface now?" 10 52); then
                 clear
                 wget https://raw.githubusercontent.com/maaatttt/ubiq/master/shinobi.sh
                 sudo chmod +x shinobi.sh
