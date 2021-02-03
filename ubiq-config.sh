@@ -76,8 +76,8 @@ function advancedMenu() {
                 whiptail --title "gubiq Update" --fb --msgbox "Please log in as "$rootuser" and run 'ubiq-config' again in order to perform this action." 10 45
                 elif ( whiptail --title "gubiq Update" --fb --yesno "Your system is already configured for monthly automatic updates.  Would you like to update now anyway?" 10 60); then
                 wget https://raw.githubusercontent.com/maaatttt/ubiq/master/gu.sh
-                #chmod +x gu.sh
-                #./gu.sh
+                chmod +x gu.sh
+                ./gu.sh
                 else whiptail --title "gubiq Update" --fb --msgbox "Update has been canceled." 10 29
                 fi
             elif [ -f "/usr/bin/gubiq" ]; then
