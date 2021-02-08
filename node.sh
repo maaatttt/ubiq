@@ -1,39 +1,27 @@
 #!/bin/bash
+
 clear
-yes '' | sed 4q
-cat << "EOF"
-88888      88  88888888888     88888      88888888
-88888      88  88888     88    88888    8888      88
-88888      88  88888      88   88888   88888        88
-88888      88  88888      88   88888  888888         88
-88888      88  88888     88    88888  888888         88
-88888      88  88888888888     88888  888888     8   88
-88888      88  88888      88   88888  888888     88  88
-88888      88  88888       88  88888   88888      88 8
- 8888     88   88888      88   88888    8888       88
-  888888888    88888888888     88888      888888888 88
+echo "      	█████  █████   ███████████    █████      ██████"
+sleep .75
+echo "      	░███  ░░███   ░░███░░░░░███  ░░███     ███░░░░███"
+sleep .75
+echo "      	░███   ░███    ░███    ░███   ░███    ███    ░░███"
+sleep .75
+echo "      	░███   ░███    ░██████████    ░███   ░███     ░███"
+sleep .75
+echo "      	░███   ░███    ░███░░░░░███   ░███   ░███   ██░███"
+sleep .75
+echo "      	░███   ░███    ░███    ░███   ░███   ░░███ ░░████"
+sleep .75
+echo "      	░░████████     ███████████    █████   ░░░██████░██"
+sleep .75
+echo "      	░░░░░░░░     ░░░░░░░░░░░    ░░░░░      ░░░░░░ ░░"
+sleep 3
+clear
 
+whiptail --title "Welcome!" --fb --msgbox "Thanks for supporting the Ubiq network with a node.\n\nThis setup will work with the following hardware;\n\n- Raspberry Pi 3B\n- Raspberry Pi 3B+\n- Raspberry Pi 4B\n- Asus Tinkerboard\n- Odroid XU4\n- Odroid C2\n- Libre LePotato\n\nPress "OK" to continue to setup." 20 55
 
-
-
-Thank you for supporting the Ubiq network by maintaining a node!
-
-This script will handle setup on the following systems;
-
-- Raspberry Pi 3B, 3B+, or 4B running Raspberry Pi OS or Raspberry Pi OS Lite
-
-- Asus Tinkerboard / Tinkerboard S running Armbian
-
-- Odroid XU4 running Armbian
-
-- Odroid C2 running Armbian
-
-- Libre LePotato running Armbian
-
-EOF
-read -p "Press ENTER to continue to setup."
-
-#### Setting variables naming the hardware being used, and its architecture.
+#### Setting some variables naming the hardware being used, and its architecture.
 #### Any hardware variants discoverd to work with this script will be added over time.
 
 node_ip=$(hostname -I | cut -f1 -d' ')
@@ -59,38 +47,26 @@ clear
 #### Raspberry Pi's will create a new user called "node" and assign permissions.  Armbian systems will remind about certain settings.
 
 if [ $hardware = RaspberryPi ]; then
-cat << "EOF"
-Your new user will be called 'node'.
-
-You will now be prompted to set a password for your new user...
-
-When prompted to fill in personal details, you may leave it blank.
-
-Welcome to Ubiq!
-EOF
-	echo
-  	read -p "Press ENTER to continue..."
-	clear
+  whiptail --title "New User" --fb --msgbox "A new user will be created for you called 'node'.\n\nYou will be prompted to set a password for the new user.\n\nThere is NO requirment to fill in the personal details.\n\nYou will then set your timezone & continue to the setup.\n\nWelcome to Ubiq!" 16 60
 	sudo adduser node
-  	sudo usermod -G sudo node
-  	sudo sed -i -e "s/CONF_SWAPSIZE=100/CONF_SWAPSIZE=2048/" /etc/dphys-swapfile
-  	sudo /etc/init.d/dphys-swapfile restart
-
+  sudo usermod -G sudo node
+  sudo sed -i -e "s/CONF_SWAPSIZE=100/CONF_SWAPSIZE=2048/" /etc/dphys-swapfile
+  sudo /etc/init.d/dphys-swapfile restart
+  sudo dpkg-reconfigure tzdata
 elif [ $hardware != RaspberryPi ]; then
-cat << "EOF"
-If you are running Armbian, you created the user called 'node' and set it's password on first boot.
-
-You should have also set up the network connection & adjusted the timezone settings.
-
-When the setup process is complete, your system will restart.
-
-Welcome to Ubiq!
-EOF
-echo
-	read -p "Press ENTER to continue..."
+  whiptail --title "New User" --fb --msgbox "When running Armbian OS, you will have created a user called 'node' and set it's password on first boot.\n\nYou will now set your timezone and continue to the setup.\n\nWelcome to Ubiq!" 14 50
+  sudo dpkg-reconfigure tzdata
 fi
-
 clear
+
+#### User will select the applicable boot method, which will determine location of node user home dir
+
+if (whiptail --title "Boot Method" --fb --yesno "Which drive are you using to boot the operating system?" 10 32 --yes-button "microSD" --no-button "SSD"); then
+	bootmethod=microSD
+else
+	bootmethod=SSD
+fi
+whiptail --fb --title "Boot Method" --msgbox "You have indicated that you are booting the operating system from the "$bootmethod"" 10 43
 
 #### Update, Upgrade, Optimize & install NTP, HTOP, Supervisor and git
 
@@ -102,10 +78,13 @@ sudo apt install ntp -y -q
 sudo apt install htop -q
 sudo apt install supervisor -y -q
 sudo apt install git -y -q
-sudo mkfs.ext4 /dev/sda -L UBIQ
+
+if [ $bootmethod = microSD ]; then
+sudo mkfs.ext4 /dev/sda -L UBIQ -y
 sudo mkdir /mnt/ssd
 sudo mount /dev/sda /mnt/ssd
 echo "/dev/sda /mnt/ssd ext4 defaults 0 0" | sudo tee -a /etc/fstab
+fi
 
 #### Setting up the Supervisor conf file. This file allows Supervisor to keep gubiq processes constantly alive.
 
@@ -126,117 +105,82 @@ clear
 
 #### Giving the user the option to list their node on the Ubiq Network stats page, found at 'https://ubiq.gojupiter.tech'.
 
-echo
-read -p "Would you like to be listed on the Ubiq Network Stats Page? Your node name & and some details would be publicly available on 'https://ubiq.gojupiter.tech'. (y/n)" CONT
-if [ "$CONT" = "y" ]; then
-	sudo sed -i -e "s/--maxpeers 100/--maxpeers 100 --ethstats "temporary:password@ubiq-rpc.gojupiter.tech"/" /etc/supervisor/conf.d/gubiq.conf
-  	echo "Type a name for your node to be displayed on the Network Stats website, then press Enter."
-	echo
-  	read varname
-  	sudo sed -i -e "s/temporary/$varname/" /etc/supervisor/conf.d/gubiq.conf
-  	echo
-  	echo "Your node will be named $varname"
-  	echo
-  	sleep 4
-  	echo "Enter the secret to list your node on the Ubiq Stats Page, then press ENTER."
-  	echo
-  	read varpass
-  	sudo sed -i -e "s/password/$varpass/" /etc/supervisor/conf.d/gubiq.conf
-  	echo
-	echo "Your node will be listed..."
-	echo
+if ( whiptail --title "Ubiq Netstats" --fb --yesno "Do you want to be listed on the Ubiq Network Stats Page?\n\nNode name, peer count, and general region would be public on 'https://ubiq.gojupiter.tech'." 12 60 ); then
+		sudo sed -i -e "s/--maxpeers 100/--maxpeers 100 --ethstats "temporary:password@ubiq-rpc.gojupiter.tech"/" /etc/supervisor/conf.d/gubiq.conf
+		varname=$(whiptail --fb --inputbox "Input a name for your node as you would like it to be displayed on the stats site, https://ubiq.gojupiter.tech" --nocancel 11 60 3>&1 1>&2 2>&3)
+		sudo sed -i -e "s/temporary/$varname/" /etc/supervisor/conf.d/gubiq.conf
+  	whiptail --title "Ubiq Netstats" --msgbox "Your node will be named $varname." 8 40
+		varpass=$(whiptail --fb --passwordbox "Enter the password to list your node on the Ubiq Stats Page" --nocancel 10 64 3>&1 1>&2 2>&3)
+		sudo sed -i -e "s/password/$varpass/" /etc/supervisor/conf.d/gubiq.conf
+  	whiptail --fb --title "Ubiq Netstats" --msgbox "Your node will be listed on the public site." 9 48
 else
-	echo
-	echo "Your node will not be listed on the public site..."
+		whiptail --fb --title "Ubiq Netstats" --msgbox "Your node will not be listed on the stats site." 9 51
 fi
-yes '' | sed 5q
 
 #### If you are using Raspberry Pi OS, SSH is not enabled by default like it is on systems running Armbian.
 
 if [ $hardware != RaspberryPi ]; then
-	echo "SSH is active by default with Armbian. This will allow you to log in and operate your node from another machine on your network."
+	whiptail --title "SSH Configuration" --fb --msgbox "SSH is active by default with Armbian.\n\nThis will allow you to operate your node by logging in from another machine on your network." 12 52
 elif [ $hardware = RaspberryPi ]; then
-	read -p "Would you like to enable SSH on this system? This will allow you to log in and operate your node from another machine on your network. (y/n)" CONT
-	if [ $CONT = y ]; then
+	if (whiptail --title "SSH Configuration" --fb --yesno "Would you like to enable SSH on this system?\n\nThis will allow you to operate your node by logging in from another machine on your network." 12 52 ); then
   		sudo raspi-config nonint do_ssh 0
-		echo
-		echo "SSH has been enabled"
-		sleep 4
-	else
-  		echo "SSH is not active on this system.  To enable SSH in the future, you can do so in the raspi-config menu."
-  		sleep 4
+			whiptail --title "SSH Configuration" --fb --msgbox "SSH has been enabled" 9 24
+  else
+  		whiptail --title "SSH Configuration" --fb --msgbox "SSH has not been activated on this system.\n\nTo enable SSH in the future, you can do so by using the 'raspi-config' menu." 12 46
 	fi
 fi
-yes '' | sed 5q
 
 #### Giving the user the option to sync all blocks in full, or sync in "fast" mode which saves space...
 
-read -p "Would you like to set your node to sync in 'full archive' mode?  This will take more storage space and sync will take longer. (y/n)" CONT
-if [ "$CONT" = "y" ]; then
+if ( whiptail --title "Sync Method" --fb --yesno "Would like to sync in 'full archive' mode or 'fast mode'?\n\nFull archive mode will use more drive space and time to complete sync is longer." --yes-button "Full" --no-button "Fast" 12 61 ); then
 	sudo sed -i -e "s/--maxpeers 100/--maxpeers 100 --syncmode "full" --gcmode "archive"/" /etc/supervisor/conf.d/gubiq.conf
-  echo
-  echo "Your node will sync in 'full archive' mode."
-	sleep 4
+  whiptail --title "Sync Method" --fb --msgbox "Your node will sync in 'full archive' mode." 9 48
 else
-  echo
-  echo "Your node will sync in 'fast' mode"
-	sleep 4
+	whiptail --title "Sync Method" --fb --msgbox "Your node will sync in 'fast' mode." 9 39
 fi
-yes '' | sed 5q
 
 #### Giving the user an option to let the system automatically update gubiq using a cron job.
 
-read -p "Would you like your node to download the most currnet gubiq binary file monthly?   If a new version is released, this will automatically replace the outdated one. (y/n)" CONT
-if [ "$CONT" = "y" ]; then
-	touch auto.sh
-	chmod +x auto.sh
-	tee auto.sh &>/dev/null << "EOF"
+if ( whiptail --title "Automatic Updates" --fb --yesno "Do you want to download the gubiq binary monthly?\n\nThis will update your node if there has been a new version released in the previous month." 12 53); then
+		touch auto.sh
+		chmod +x auto.sh
+		tee auto.sh &>/dev/null << "EOF"
 #!/bin/bash
 
 wget https://raw.githubusercontent.com/maaatttt/ubiq/master/gu.sh
 sudo chmod +x gu.sh
 ./gu.sh
+
 EOF
-  echo "@monthly ./auto.sh" | crontab -
-  echo
-  echo "Your node will download the most current version of gubiq, and restart its processes on the first of every month"
-	sleep 6
+    echo "@monthly ./auto.sh" | crontab -
+  	whiptail --title "Automatic Updates" --fb --msgbox "Your node will automatically handle updates.\n\nGubiq binaries will be redownloaded on the first of each month & the node will reboot."  12 48
 else
-  echo
-  echo "Your node will NOT automatically update gubiq.  All updates must be handled manually!"
-  sleep 4
+   	whiptail --title "Automatic Updates" --fb --msgbox "Your node will not automatically update gubiq.\n\nUpdates must be handled manually by using the 'ubiq-config' utility in your terminal." 12 50
 fi
-echo
+
 
 #### System will determine the correct binary file to download based on how it was defined at the beginning of this script.
 #### The binary file's checksum will be validated.  If it is valid, the script will complete the setup. If it is invalid, it will exit setup.
 
 if [ $arch = 32bit ]; then
         wget https://github.com/ubiq/go-ubiq/releases/download/v5.0.0/gubiq-linux-arm-7
-        echo "598553a57e68b8d0c298481ce1fc99d0df6df63b44c64e128ce7af38681e302e  gubiq-linux-arm-7" | sha256sum -c - || exit 1
+        echo "598553a57e68b8d0c298481ce1fc99d0df6df63b44c64e128ce7af38681e302e gubiq-linux-arm-7" | sha256sum -c - || exit 1
         sudo cp ./gubiq-linux-arm-7 /usr/bin/gubiq
+        sudo chmod +x /usr/bin/gubiq
 elif [ $arch = 64bit ]; then
         wget https://github.com/ubiq/go-ubiq/releases/download/v5.0.0/gubiq-linux-arm64
         echo "1939ef3a8776b3ff7bda368edfda53efee2815f9682922725ab4241a301d605d gubiq-linux-arm64" | sha256sum -c - || exit 1
         sudo cp ./gubiq-linux-arm64 /usr/bin/gubiq
+        sudo chmod +x /usr/bin/gubiq
 fi
-echo
 
 #### Changing permissions, moving and linking the user's home folder, and rebooting the system to begin blockchain sync.
 
-sudo chmod +x /usr/bin/gubiq
+if [ $bootmethod = microSD ]; then
 sudo mv /home/node /mnt/ssd
 sudo ln -s /mnt/ssd/node /home
+fi
 clear
-yes '' | sed 4q
-echo "The setup is complete. Sync will begin automatically when the system restarts."
-echo
-read -p "Press ENTER to reboot now."
-echo
-secs=$((1 * 8))
-while [ $secs -gt 0 ]; do
-   echo -ne "$secs\033[0K\r"
-   sleep 1
-   : $((secs--))
-done
+
+whiptail --title "Setup" --fb --msgbox "The initial setup is complete! \n\nSync will begins automatically after a system restart.\n\nPress "Ok" to reboot now." 14 35
 sudo reboot
