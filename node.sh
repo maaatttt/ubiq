@@ -47,15 +47,13 @@ clear
 #### Raspberry Pi's will create a new user called "node" and assign permissions.  Armbian systems will remind about certain settings.
 
 if [ $hardware = RaspberryPi ]; then
-  whiptail --title "New User" --fb --msgbox "A new user will be created for you called 'node'.\n\nYou will be prompted to set a password for the new user.\n\nThere is NO requirment to fill in the personal details.\n\nYou will then set your timezone & continue to the setup.\n\nWelcome to Ubiq!" 16 60
+  whiptail --title "New User" --fb --msgbox "A new user will be created for you called 'node'.\n\nYou will be prompted to set a password for the new user.\n\nThere is NO requirment to fill in the personal details.\n\nYou will now continue to the setup.\n\nWelcome to Ubiq!" 16 60
 	sudo adduser node
   sudo usermod -G sudo node
   sudo sed -i -e "s/CONF_SWAPSIZE=100/CONF_SWAPSIZE=2048/" /etc/dphys-swapfile
   sudo /etc/init.d/dphys-swapfile restart
-  sudo dpkg-reconfigure tzdata
 elif [ $hardware != RaspberryPi ]; then
-  whiptail --title "New User" --fb --msgbox "When running Armbian OS, you will have created a user called 'node' and set it's password on first boot.\n\nYou will now set your timezone and continue to the setup.\n\nWelcome to Ubiq!" 14 50
-  sudo dpkg-reconfigure tzdata
+  whiptail --title "New User" --fb --msgbox "When running Armbian OS, you will have created a user called 'node' and set it's password on first boot.\n\nYou will now continue to the setup.\n\nWelcome to Ubiq!" 14 50
 fi
 clear
 
