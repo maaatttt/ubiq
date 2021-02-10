@@ -39,7 +39,7 @@ https://www.armbian.com/).
   
     - Note! Raspberry Pi users should use their OS config utility ( `raspi-config` ) to change the `pi` user default password 
     - Note! Armbian users will be prompted to create a non-root user when booting a new system.  Name that new user **`node`**.
-    - Note! The `ubiq-config` tool will prompt you to set your timezone, you do not need to do it beforehand.
+    - Note! The `ubiq-config` tool will prompt you to set your timezone when you attempt to spin up a node, you do not need to do it beforehand.
     
 - [ ] Download and install the **`ubiq-config.sh`** utility.
     - `wget https://raw.githubusercontent.com/maaatttt/ubiq/master/ubiq-config.sh`
