@@ -12,23 +12,25 @@ This README provides some general instructions for the initial setup of the syst
 
 - Raspberry Pi uses [Raspberry Pi OS](https://www.raspberrypi.org/downloads/raspberry-pi-os/), the other boards use [Armbian](
 https://www.armbian.com/).
-  - [Raspberry Pi ](https://downloads.raspberrypi.org/raspios_lite_armhf_latest)  (3B+ and newer prefered) 
+  - [Raspberry Pi ](https://downloads.raspberrypi.org/raspios_lite_armhf_latest)  (3B / 3B+ / 4B) 
   - [Asus Tinkerboard](https://redirect.armbian.com/tinkerboard/Focal_current)
   - [OdroidXU4](https://redirect.armbian.com/odroidxu4/Buster_legacy)
   - [OdroidC2](https://redirect.armbian.com/odroidc2/Buster_current)
   - [Libre Le Potato](https://redirect.armbian.com/lepotato/Buster_current_minimal)
   
-- [ ]  Flash OS to microSD card.
-
-  - Use [Etcher](https://www.balena.io/etcher/) to flash the OS to your microSD card.
-  - For Raspberry Pi, SSH is disabled by default.  [Enabled by placing an empty file named **`ssh`** in boot partition of the SD card. ](https://www.raspberrypi.org/documentation/remote-access/ssh/)
+- [ ]  Flash OS to microSD card (or SSD*).
+  - NOTE! * You can only boot from an SSD if you are using a Pi 3B+ or 4B. When using a Pi 4B you must be sure the [EEPROM settings](https://www.raspberrypi.org/documentation/hardware/raspberrypi/booteeprom.md) are up to date, and the primary boot media in `raspi-config` Advanced Settings is set to USB Boot.
+  
+  - Use [Etcher](https://www.balena.io/etcher/) to flash the OS to your microSD card (or SSD, depending).
+  - For Raspberry Pi, SSH is _disabled_ by default.  [Enable by placing an empty file named **`ssh`** in boot partition of the boot media. ](https://www.raspberrypi.org/documentation/remote-access/ssh/)
   - For Armbian boards, SSH is enabled by default.
 
 - [ ] If you _must_ use WiFi instead of a wired ethernet connection you can set up the connection inside your OS config utility.
   - Raspberry Pi - `sudo raspi-config`
   - Armbian - `armbian-config`
 - [ ] First boot / Log In
-  - Connect the SSD drive to the system before starting up. 
+  - micro SD boot : Connect the SSD drive being used for storage to the system before starting up. 
+  - SSD boot : Be sure there is no microSD card installed before starting up.
   
   - Logging in via SSH -
     - **Raspberry Pi** -  log in with **`ssh user@youripaddress`**  ( Defaults - `user` : **`pi`** / `passwd` : **`raspberry`** )
