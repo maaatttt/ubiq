@@ -66,6 +66,7 @@ This script handles all the commands for the primary Ubiq node setup procedure. 
 It is currently intended for the following hardware:
 - Raspberry Pi 3B / 3B+ / 4B (Raspberry Pi OS - 32bit)
 - Asus Tinkerboard / Tinkerboard S (Armbian - 32bit)
+- Odroid XU4 (Armbian - 32bit)
 - Odroid C2 (Armbian - 64bit)
 - Libre LePotato (Armbian - 64bit)
 
