@@ -12,11 +12,12 @@ This README provides some general instructions for the initial setup of the syst
 
 - Raspberry Pi uses [Raspberry Pi OS](https://www.raspberrypi.org/downloads/raspberry-pi-os/), the other boards use [Armbian](
 https://www.armbian.com/).
-  - [Raspberry Pi ](https://downloads.raspberrypi.org/raspios_lite_armhf_latest)  (3B / 3B+ / 4B) 
-  - [Asus Tinkerboard](https://redirect.armbian.com/tinkerboard/Focal_current)
-  - [OdroidXU4](https://redirect.armbian.com/odroidxu4/Buster_legacy)
-  - [OdroidC2](https://redirect.armbian.com/odroidc2/Buster_current)
-  - [Libre Le Potato](https://redirect.armbian.com/lepotato/Buster_current_minimal)
+  - [Raspberry Pi - 3B / 3B+ / 4B ](https://downloads.raspberrypi.org/raspios_lite_armhf_latest)
+  - [Asus - Tinkerboard ](https://redirect.armbian.com/tinkerboard/Focal_current)
+  - [Hardkernel - Odroid XU4](https://redirect.armbian.com/odroidxu4/Buster_legacy)
+  - [Hardkernel - Odroid C2](https://redirect.armbian.com/odroidc2/Buster_current)
+  - [Libre Computers - Le Potato](https://redirect.armbian.com/lepotato/Buster_current_minimal)
+  - [Pine64 - RockPro64](https://redirect.armbian.com/rockpro64/Focal_current)
   
 - [ ]  Flash OS to microSD card (or SSD*).
   - NOTE! * You can only boot from an SSD if you are using a Pi 3B+ or 4B. When using a Pi 4B you must be sure the [EEPROM settings](https://www.raspberrypi.org/documentation/hardware/raspberrypi/booteeprom.md) are up to date, and the primary boot media in `raspi-config` Advanced Settings is set to USB Boot.
@@ -46,7 +47,7 @@ https://www.armbian.com/).
     - `sudo chmod 755 ubiq-config.sh`
     - `sudo mv ubiq-config.sh /usr/bin/ubiq-config`
 
-- [ ] Use **ubiq-config** by simply typing `ubiq-config` into the terminal at any time.
+- [ ] Use **ubiq-config** by inputting `ubiq-config` into the terminal at any time.
 
 -------------------------------------------------------------------------------------------------------------------------------
 
