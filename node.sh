@@ -41,6 +41,9 @@ elif grep -q 'ODROID-C2' /proc/device-tree/model; then
 elif grep -q 'Libre' /proc/device-tree/model; then
 	hardware=LibreLePotato
 	arch=64bit
+elif grep -q 'RockPro64' /proc/device-tree/model; then
+	hardware=RockPro64
+	arch=64bit
 fi
 clear
 
