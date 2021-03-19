@@ -104,7 +104,7 @@ EOF
 sudo sed -i -e "s/127.0.0.1/$node_ip/" /etc/supervisor/conf.d/gubiq.conf
 clear
 
-#### Giving the user the option to list their node on the Ubiq Network stats page, found at 'https://ubiq.gojupiter.tech'.
+#### Giving the user the option to list their node on the Ubiq Network stats page, found at 'https://stats.ubiqscan.io'.
 
 if ( whiptail --title "Ubiq Netstats" --fb --yesno "Do you want to be listed on the Ubiq Network Stats Page?\n\nNode name, peer count, and general region would be public on 'https://ubiq.gojupiter.tech'." 12 60 ); then
 		sudo sed -i -e "s/--maxpeers 100/--maxpeers 100 --ethstats "temporary:password@stats.ubiqscan.io"/" /etc/supervisor/conf.d/gubiq.conf
