@@ -108,7 +108,7 @@ clear
 
 if ( whiptail --title "Ubiq Netstats" --fb --yesno "Do you want to be listed on the Ubiq Network Stats Page?\n\nNode name, peer count, and general region would be public on 'https://ubiq.gojupiter.tech'." 12 60 ); then
 		sudo sed -i -e "s/--maxpeers 100/--maxpeers 100 --ethstats "temporary:password@stats.ubiqscan.io"/" /etc/supervisor/conf.d/gubiq.conf
-		varname=$(whiptail --fb --inputbox "Input a name for your node as you would like it to be displayed on the stats site, https://ubiq.gojupiter.tech" --nocancel 11 60 3>&1 1>&2 2>&3)
+		varname=$(whiptail --fb --inputbox "Input a name for your node as you would like it to be displayed on the stats site, https://stats.ubiqscan.io" --nocancel 11 60 3>&1 1>&2 2>&3)
 		sudo sed -i -e "s/temporary/$varname/" /etc/supervisor/conf.d/gubiq.conf
   	whiptail --title "Ubiq Netstats" --msgbox "Your node will be named $varname." 8 40
 		varpass=$(whiptail --fb --passwordbox "Enter the password to list your node on the Ubiq Stats Page" --nocancel 10 64 3>&1 1>&2 2>&3)
