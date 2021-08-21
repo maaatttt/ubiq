@@ -164,13 +164,13 @@ fi
 #### The binary file's checksum will be validated.  If it is valid, the script will complete the setup. If it is invalid, it will exit setup.
 
 if [ $arch = 32bit ]; then
-        wget https://github.com/ubiq/go-ubiq/releases/download/v5.1.0/gubiq-linux-arm-7
-        echo "bfc7a66f5964dc1507ca32d4e4bcccc7cf30eb7b0ad8e1c0dc50a429caea9e47 gubiq-linux-arm-7" | sha256sum -c - || exit 1
+        wget https://github.com/ubiq/go-ubiq/releases/download/v5.2.0/gubiq-linux-arm-7
+        echo "6bb8da73edba432546a2907356dfdaa4dc41c7d978c92d66ca90e60d91640900 gubiq-linux-arm-7" | sha256sum -c - || exit 1
         sudo cp ./gubiq-linux-arm-7 /usr/bin/gubiq
         sudo chmod +x /usr/bin/gubiq
 elif [ $arch = 64bit ]; then
-        wget https://github.com/ubiq/go-ubiq/releases/download/v5.1.0/gubiq-linux-arm64
-        echo "f67bdd8de30408e23955995b7a82528e1cb696f1ed87c1b756521e9e65e2585a gubiq-linux-arm64" | sha256sum -c - || exit 1
+        wget https://github.com/ubiq/go-ubiq/releases/download/v5.2.0/gubiq-linux-arm64
+        echo "af7cb5397752871a34f675816df66e09f024ef0c15baadb04915b9fa6ee057cd gubiq-linux-arm64" | sha256sum -c - || exit 1
         sudo cp ./gubiq-linux-arm64 /usr/bin/gubiq
         sudo chmod +x /usr/bin/gubiq
 fi
