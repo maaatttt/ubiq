@@ -164,9 +164,9 @@ fi
 #### The binary file's checksum will be validated.  If it is valid, the script will complete the setup. If it is invalid, it will exit setup.
 
 if [ $arch = 32bit ]; then
-        wget https://github.com/ubiq/go-ubiq/releases/download/v5.2.0/gubiq-linux-arm-7
-        echo "6bb8da73edba432546a2907356dfdaa4dc41c7d978c92d66ca90e60d91640900 gubiq-linux-arm-7" | sha256sum -c - || exit 1
-        sudo cp ./gubiq-linux-arm-7 /usr/bin/gubiq
+        wget https://github.com/ubiq/go-ubiq/releases/download/v5.2.0/gubiq-linux-arm7
+        echo "6bb8da73edba432546a2907356dfdaa4dc41c7d978c92d66ca90e60d91640900 gubiq-linux-arm7" | sha256sum -c - || exit 1
+        sudo cp ./gubiq-linux-arm7 /usr/bin/gubiq
         sudo chmod +x /usr/bin/gubiq
 elif [ $arch = 64bit ]; then
         wget https://github.com/ubiq/go-ubiq/releases/download/v5.2.0/gubiq-linux-arm64
