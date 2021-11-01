@@ -106,7 +106,7 @@ clear
 
 #### Giving the user the option to list their node on the Ubiq Network stats page, found at 'https://stats.ubiqscan.io'.
 
-if ( whiptail --title "Ubiq Netstats" --fb --yesno "Do you want to be listed on the Ubiq Network Stats Page?\n\nNode name, peer count, and general region would be public on 'https://ubiq.gojupiter.tech'." 12 60 ); then
+if ( whiptail --title "Ubiq Netstats" --fb --yesno "Do you want to be listed on the Ubiq Network Stats Page?\n\nNode name, peer count, and general region would be public on 'https://stats.ubiqscan.io'." 12 60 ); then
 		sudo sed -i -e "s/--maxpeers 100/--maxpeers 100 --ethstats "temporary:password@stats.ubiqscan.io"/" /etc/supervisor/conf.d/gubiq.conf
 		varname=$(whiptail --fb --inputbox "Input a name for your node as you would like it to be displayed on the stats site, https://stats.ubiqscan.io" --nocancel 11 60 3>&1 1>&2 2>&3)
 		sudo sed -i -e "s/temporary/$varname/" /etc/supervisor/conf.d/gubiq.conf
@@ -165,12 +165,12 @@ fi
 
 if [ $arch = 32bit ]; then
         wget https://github.com/ubiq/go-ubiq/releases/download/v5.2.1/gubiq-linux-arm7
-        echo "6bb8da73edba432546a2907356dfdaa4dc41c7d978c92d66ca90e60d91640900 gubiq-linux-arm7" | sha256sum -c - || exit 1
+        echo "cf1588a0d30eeb2a8a5339ab48248b04aef5dc148b6513aac26dd4da9fe29614 gubiq-linux-arm7" | sha256sum -c - || exit 1
         sudo cp ./gubiq-linux-arm7 /usr/bin/gubiq
         sudo chmod +x /usr/bin/gubiq
 elif [ $arch = 64bit ]; then
         wget https://github.com/ubiq/go-ubiq/releases/download/v5.2.1/gubiq-linux-arm64
-        echo "cf1588a0d30eeb2a8a5339ab48248b04aef5dc148b6513aac26dd4da9fe29614 gubiq-linux-arm64" | sha256sum -c - || exit 1
+        echo "cef43a8d126d78b80151262b16b10e55b5d028f3d2cae31ba6e983188c0297cf gubiq-linux-arm64" | sha256sum -c - || exit 1
         sudo cp ./gubiq-linux-arm64 /usr/bin/gubiq
         sudo chmod +x /usr/bin/gubiq
 fi
