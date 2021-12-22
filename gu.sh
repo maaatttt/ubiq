@@ -20,14 +20,14 @@ sudo supervisorctl stop gubiq
 if [ $hardware = RaspberryPi ] || [ $hardware = Tinkerboard ] || [ $hardware = OdroidXU4 ]; then
 	sudo rm gubiq-linux-arm7
 	sudo rm /usr/bin/gubiq
-	wget https://github.com/ubiq/go-ubiq/releases/download/v5.4.0/gubiq-linux-arm7
-  echo "af6c8b01eb75941df89c16164236066797a17fef6047f8096c290ab6f8074d58 gubiq-linux-arm7" | sha256sum -c - || exit 1
+	wget https://github.com/ubiq/go-ubiq/releases/download/v6.0.0/gubiq-linux-arm7
+  echo "31a8dd7305955154a2e83b43396bfd8d92b43e0f753fb1dc4b0362930413e05c gubiq-linux-arm7" | sha256sum -c - || exit 1
 
 elif [ $hardware = OdroidC2 ] || [ $hardware = LibreLePotato ]; then
 	sudo rm gubiq-linux-arm64
 	sudo rm /usr/bin/gubiq
-	wget https://github.com/ubiq/go-ubiq/releases/download/v5.4.0/gubiq-linux-arm64
-  echo "bf01a14fe21117d89dced3a683ebc15e9b6c514874571f704c428a92759daf4e gubiq-linux-arm64" | sha256sum -c - || exit 1
+	wget https://github.com/ubiq/go-ubiq/releases/download/v6.0.0/gubiq-linux-arm64
+  echo "778c2662fbf35869e5a449b6643cf0a4247c37fe121a65befa323202e7131d5b gubiq-linux-arm64" | sha256sum -c - || exit 1
 fi
 
 if [ $hardware = RaspberryPi ] || [ $hardware = Tinkerboard ] || [ $hardware = OdroidXU4 ]; then
